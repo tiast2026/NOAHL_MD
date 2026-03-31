@@ -268,7 +268,7 @@ export default function MonthSection({ plan }: { plan: MonthPlan }) {
           {sTier.length > 0 && (
             <div>
               <SectionHeader>S級（主力商品）</SectionHeader>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {sTier.map((p) => <ProductCard key={p.id} product={p} />)}
               </div>
             </div>
