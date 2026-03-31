@@ -35,7 +35,7 @@ export default async function MonthPage({ params }: { params: Promise<{ id: stri
     <div className="min-h-screen bg-base">
       {/* Top Nav */}
       <header className="sticky top-0 z-50 bg-base-header/95 backdrop-blur-sm border-b border-brand/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
           <Link
             href="/"
             className="flex items-center gap-2 text-[13px] font-semibold text-text-secondary hover:text-brand-dark transition-colors"
@@ -82,7 +82,7 @@ export default async function MonthPage({ params }: { params: Promise<{ id: stri
       </header>
 
       {/* Breadcrumb */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-5 pb-1">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 pt-5 pb-1">
         <nav className="flex items-center gap-2 text-[11px] text-text-muted">
           <Link href="/" className="hover:text-brand-dark transition-colors">NOAHL 2026 MD Plan</Link>
           <span>/</span>
@@ -91,13 +91,13 @@ export default async function MonthPage({ params }: { params: Promise<{ id: stri
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-4 pb-16">
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-4 pb-16">
         <MonthSection plan={plan} />
       </main>
 
       {/* Bottom navigation */}
       <div className="border-t border-brand/10 bg-base-card">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           {prevMonth ? (
             <Link
               href={`/month/${prevMonth}`}

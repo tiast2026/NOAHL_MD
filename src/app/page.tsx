@@ -19,7 +19,7 @@ export default function Home() {
     <div className="min-h-screen bg-base">
       {/* ── Hero ── */}
       <header className="bg-gradient-to-b from-base-header to-base border-b border-brand/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8 sm:py-10">
           <div className="flex items-center gap-3.5 mb-6">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center shadow-sm">
               <span className="text-white font-extrabold text-[16px] tracking-tight">N</span>
@@ -58,7 +58,7 @@ export default function Home() {
       </header>
 
       {/* ── Month Grid ── */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {mdPlan.map((plan) => (
             <MonthCard key={plan.month} plan={plan} isPeak={plan.month === peakMonth.month} />
@@ -67,7 +67,7 @@ export default function Home() {
       </main>
 
       {/* ── Annual Sales Chart (simple bar) ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-10">
+      <section className="max-w-[1440px] mx-auto px-4 sm:px-6 pb-10">
         <div className="bg-base-card rounded-2xl border border-brand/10 p-6">
           <h2 className="text-[15px] font-bold text-text-heading mb-4">月別売上目標</h2>
           <div className="flex items-end gap-2 h-32">
