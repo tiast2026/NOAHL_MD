@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors - NOAHL Design Guide */
+  --color-base: #F8F6F3;
+  --color-base-header: #FAFAF8;
+  --color-base-card: #FFFFFF;
+
+  --color-text-primary: #3D352F;
+  --color-text-heading: #2C2420;
+  --color-text-secondary: #8A7D72;
+  --color-text-muted: #A99D93;
+
+  --color-brand: #C4A882;
+  --color-brand-light: #D4BC9A;
+  --color-brand-dark: #A8905F;
+
+  --color-rakuten: #BF0000;
+  --color-official: #4A90D9;
+  --color-zozo: #1A1A1A;
+  --color-tiktok: #010101;
+
+  --color-row-alt: #FDFCFB;
+  --color-row-hover: #F0EBE5;
+
+  /* Font */
+  --font-sans: 'Inter', 'Noto Sans JP', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: "tnum";
+  -webkit-font-smoothing: antialiased;
+}
