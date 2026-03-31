@@ -105,11 +105,11 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* 4-Axis */}
         {product.fourAxis && (
-          <div className="flex items-center gap-2 pt-1 border-t border-brand/5">
-            <FourAxisBadge label="Z" value={product.fourAxis.zozo} />
-            <FourAxisBadge label="R" value={product.fourAxis.rakuten} />
-            <FourAxisBadge label="T" value={product.fourAxis.trend} />
-            <FourAxisBadge label="内" value={product.fourAxis.internal} />
+          <div className="flex items-center gap-2 pt-1.5 border-t border-brand/5">
+            <FourAxisBadge label="ZOZO" value={product.fourAxis.zozo} />
+            <FourAxisBadge label="楽天" value={product.fourAxis.rakuten} />
+            <FourAxisBadge label="トレンド" value={product.fourAxis.trend} />
+            <FourAxisBadge label="自社" value={product.fourAxis.internal} />
           </div>
         )}
       </div>

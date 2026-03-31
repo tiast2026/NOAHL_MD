@@ -67,6 +67,15 @@ export type MarketReport = {
   noahlInsight?: string;
 };
 
+export type CompetitorProduct = {
+  source: "ZOZO" | "楽天";
+  brand: string;
+  name: string;
+  price: string;
+  sales: string;
+  link: string;
+};
+
 export type MonthPlan = {
   month: number;
   theme: string;
@@ -89,5 +98,6 @@ export type MonthPlan = {
   clearanceCandidates?: ClearanceItem[];
   successPatterns?: string[];
   failurePatterns?: string[];
+  competitorProducts?: CompetitorProduct[];
   notes: string[];
 };

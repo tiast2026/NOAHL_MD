@@ -1,4 +1,4 @@
-import type { MonthPlan } from "@/data/types";
+import type { MonthPlan, CompetitorProduct } from "@/data/types";
 import { getImage, getLink } from "@/data/images";
 import ProductCard from "./ProductCard";
 
@@ -584,6 +584,36 @@ export default function MonthSection({ plan }: { plan: MonthPlan }) {
             </div>
           </div>
 
+          {/* ── Competitor Products ── */}
+          {plan.competitorProducts && plan.competitorProducts.length > 0 && (
+            <div>
+              <SectionHeader>他社売れ筋ランキング</SectionHeader>
+              {(["ZOZO", "楽天"] as const).map((src) => {
+                const items = plan.competitorProducts!.filter((c) => c.source === src);
+                if (items.length === 0) return null;
+                return (
+                  <details key={src} className="mb-3 rounded-xl border border-brand/10 overflow-hidden group" open={src === "ZOZO"}>
+                    <summary className="px-4 py-3 cursor-pointer flex items-center gap-2 bg-base hover:bg-brand/5 transition-colors [&::-webkit-details-marker]:hidden list-none">
+                      <span className={`px-2.5 py-1 rounded text-[13px] font-bold ${src === "ZOZO" ? "bg-gray-800 text-white" : "bg-red-600 text-white"}`}>
+                        {src}
+                      </span>
+                      <span className="text-[15px] font-bold text-text-heading flex-1">
+                        {src === "ZOZO" ? "ZOZOTOWNランキング" : "楽天市場ランキング"}
+                      </span>
+                      <span className="text-[13px] text-text-muted">{items.length}件</span>
+                      <svg className="w-5 h-5 text-text-muted transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" /></svg>
+                    </summary>
+                    <div className="divide-y divide-brand/5">
+                      {items.map((item, i) => (
+                        <CompetitorRow key={`${item.source}-${i}`} item={item} rank={i + 1} />
+                      ))}
+                    </div>
+                  </details>
+                );
+              })}
+            </div>
+          )}
+
           {/* ── Notes ── */}
           {plan.notes.length > 0 && (
             <div className="flex flex-wrap gap-2 pt-4 border-t border-brand/10">
@@ -601,6 +631,41 @@ export default function MonthSection({ plan }: { plan: MonthPlan }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/* ── Competitor Row ── */
+function CompetitorRow({ item, rank }: { item: CompetitorProduct; rank: number }) {
+  return (
+    <a
+      href={item.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-3 px-4 py-3 hover:bg-brand/5 transition-colors"
+    >
+      <span className="text-[14px] font-bold text-text-muted tabular-nums w-7 text-right shrink-0">
+        {rank}
+      </span>
+      <span className={`px-2 py-0.5 rounded text-[11px] font-bold shrink-0 ${
+        item.source === "ZOZO" ? "bg-gray-100 text-gray-700" : "bg-red-50 text-red-700"
+      }`}>
+        {item.brand}
+      </span>
+      <span className="text-[14px] text-text-primary flex-1 min-w-0 truncate">
+        {item.name}
+      </span>
+      {item.price !== "-" && (
+        <span className="text-[14px] font-bold text-text-heading tabular-nums whitespace-nowrap">
+          {item.price}
+        </span>
+      )}
+      <span className="text-[14px] font-bold text-brand tabular-nums whitespace-nowrap">
+        {item.sales}
+      </span>
+      <svg className="w-4 h-4 text-text-muted shrink-0" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clipRule="evenodd" />
+      </svg>
+    </a>
   );
 }
 
