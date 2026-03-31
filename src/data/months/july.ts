@@ -88,15 +88,17 @@ export const july: MonthPlan = {
     { category: "秋物再入荷先行", amount: "¥200万", share: "15%" },
   ],
   restockItems: [
-    { id: "nlpt329", name: "パンツ（7月爆発）", sales: "1,057枚", currentStock: "22", action: "即時発注", budget: "0.02ヶ月分 在庫ほぼゼロ" },
-    { id: "nl0197", name: "ナチュラルタンク", sales: "1,212枚", currentStock: "254", action: "在庫危機", budget: "0.2ヶ月分 8月仕入ゼロ=最終機会" },
-    { id: "nlpt320", name: "デザインパンツ", sales: "1,112枚", currentStock: "273", action: "欠品防止", budget: "0.2ヶ月分 欠品致命的" },
-    { id: "nlbi016", name: "レースインナー", sales: "521枚", currentStock: "191", action: "即時発注", budget: "0.4ヶ月分 セット買いの核" },
-    { id: "nltp288", name: "リネンシャツ（伸長中）", sales: "974枚", currentStock: "302", action: "追加発注", budget: "0.3ヶ月分 Meta広告効果" },
-    { id: "nlbi022", name: "インナー", sales: "174枚", currentStock: "31", action: "追加発注", budget: "0.2ヶ月分 欠品寸前" },
-    { id: "nlda342068", name: "ロングセラー品", sales: "417枚", currentStock: "68", action: "追加発注", budget: "0.2ヶ月分" },
-    { id: "nltp281", name: "トップス", sales: "462枚", currentStock: "154", action: "小ロット追加", budget: "0.3ヶ月分" },
-    { id: "nlwp276", name: "ワンピース（ロングセラー）", sales: "405枚", currentStock: "20", action: "追加発注", budget: "0.05ヶ月分 ほぼ欠品" },
+    { id: "nlpt329", name: "パンツ（7月爆発）", sales: "1,057枚", currentStock: "22", action: "即時発注", budget: "即発注", priority: "最優先", stockMonths: "0.02ヶ月" },
+    { id: "nl0197", name: "ナチュラルタンク", sales: "1,212枚", currentStock: "254", action: "在庫危機", budget: "最終機会", priority: "最優先", stockMonths: "0.2ヶ月" },
+    { id: "nlpt320", name: "デザインパンツ", sales: "1,112枚", currentStock: "273", action: "欠品防止", budget: "即発注", priority: "最優先", stockMonths: "0.2ヶ月" },
+    { id: "nlbi016", name: "レースインナー", sales: "521枚", currentStock: "191", action: "即時発注", budget: "セット買い核", priority: "最優先", stockMonths: "0.4ヶ月" },
+    { id: "nltp288", name: "リネンシャツ", sales: "974枚", currentStock: "302", action: "追加発注", budget: "Meta広告効果", priority: "高", stockMonths: "0.3ヶ月" },
+    { id: "nlbi022", name: "インナー", sales: "174枚", currentStock: "31", action: "追加発注", budget: "枯渇", priority: "高", stockMonths: "0.2ヶ月" },
+    { id: "nlda342068", name: "ロングセラー品", sales: "417枚", currentStock: "68", action: "追加発注", budget: "追加", priority: "高", stockMonths: "0.2ヶ月" },
+    { id: "nltp281", name: "トップス", sales: "462枚", currentStock: "154", action: "小ロット追加", budget: "小ロット", priority: "中", stockMonths: "0.3ヶ月" },
+    { id: "nlwp276", name: "ワンピース（ロングセラー）", sales: "405枚", currentStock: "20", action: "追加検討", budget: "ほぼ欠品", priority: "中", stockMonths: "0.05ヶ月" },
+    { id: "nlwp280", name: "死亡在庫WP", sales: "49枚", currentStock: "1,058", action: "追加不要", budget: "福袋行き", priority: "低", stockMonths: "21.6ヶ月" },
+    { id: "nltp031", name: "シアーシャツ", sales: "897枚", currentStock: "1,568", action: "追加不要", budget: "8月OFF", priority: "低", stockMonths: "1.7ヶ月" },
   ],
   marketInsights: [
     { source: "ZOZO", insights: [
@@ -135,9 +137,64 @@ export const july: MonthPlan = {
     "nltp031: 減速カーブ（1,817→1,929→1,607→897）。20%→40%値下げへ",
     "nltp300: 評価3.82/5 改善なし。8月クリアランス候補",
   ],
+  marketReports: [
+    {
+      title: "ZOZO トップス市場（Tレポート）",
+      body: "Tシャツ14→16件で微増、シャツ29件で高水準維持。73,377枚と巨大市場だが6月の101K枚から減速。「量の拡大」→「質の二極化」にフェーズ変化。「チュール」KWが1→5件に爆増、デコラティブトップスが高単価の主戦場。テクリネンはDISCOAT(¥5,100/1.7万枚超)が安定。",
+      noahlInsight: "nltp288(974枚)が6月657枚→大幅増でTOP4入り。公式比率61%でMeta広告が効いている。nltp031(897枚)は6月1,607枚→減速で夏後半の失速パターン。",
+    },
+    {
+      title: "ZOZO ボトムス市場（Pレポート）",
+      body: "「タック・スラックス」9→12件に急増。CIAOPANIC TYPY(¥6,000/2,533枚)が代表。ヴィンテージデニム2→5件急増(2,267枚)。「とろみ素材」はDISCOAT(¥5,400/9,005枚)が首位。",
+      noahlInsight: "nlpt320(1,112枚)がTOP2で月間1,000枚超達成。公式比率52%でMeta→公式の導線が完全機能。nlpt329(1,057枚/¥4,690)は7月新作で楽天一発ヒット。レビュー145件/評価4.55。ボトムスが「第二の柱」として確立。",
+    },
+    {
+      title: "ZOZO ワンピース・アウター市場（Sレポート）",
+      body: "アウター「半袖」7→12件、「メッシュ」7→10件に急増。WPは「ティアード」1→4件、「キャミワンピ」9→11件。オールインワン20→25件急増で新興カテゴリ。",
+      noahlInsight: "nlwp276(405枚)が7月WP最強。WP3品番がTOP30入りで最強カテゴリ維持。nlwp280(49枚/在庫1,058)は完全失速、OFF消化開始。",
+    },
+    {
+      title: "楽天市場分析（Rレポート）",
+      body: "「体型カバー」28→40件に爆発＝7月最大KW。水着9→26件(+189%)、ラッシュガード13→23件(+77%)急増。UVカット19→24件。ワンピース8→15件急増で猛暑の「コーデ不要」需要。楽天マラソン月2回＋7月福袋が主要イベント。",
+      noahlInsight: "nl0197(1,212枚/在庫254)は楽天1,127枚で楽天比率93%。在庫254枚が8月末まで持つかギリギリ。7月中の再入荷が最後のチャンス。",
+    },
+    {
+      title: "AW2026トレンド（先行仕込み）",
+      body: "「テクスチャーリッチ」(AW重要度9)：ブークレ・コーデュロイ等の素材感がAW主役。「ハイネック×エレガンス」(AW重要度9)：ファンネル・タートル・フリルカラー台頭。「リテラリーシック×プレッピー」(SS8→AW8)：通年トレンド継続。",
+      noahlInsight: "7月新作は「秋物先行3〜4型」がメイン。AW2026の「テクスチャーリッチ」「ハイネック」を先取りし9月スーパーSALEの弾として仕込む。夏物新作は¥100万=1〜2型のみ。",
+    },
+    {
+      title: "自社実績（2025年7月）",
+      body: "TOP5: nl0197(1,212枚)・nlpt320(1,112枚)・nlpt329(1,057枚)・nltp288(974枚)・nltp031(897枚)。上位5品番で5,252枚。パンツ2品番がTOP5に2つ入る歴史的快挙。TOP30中パンツ5品番は過去最多。",
+      noahlInsight: "nlpt320: 4月4枚→5月483→6月953→7月1,112枚の急成長カーブ。nlpt329は初月1,057枚。ボトムスがNOAHLの「第二の柱」として完全確立。",
+    },
+  ],
+  crossAnalysis: [
+    {
+      title: "① ボトムスの「第二の柱」を確定させる",
+      axes: "ZOZO-P × 楽天-R × トレンド × 自社",
+      description: "タック・スラックス12件/デニム5件急増 × 体型カバー40件爆発 × リラックスフィット通年トレンド × nlpt320(1,112枚TOP2) + nlpt329(初月1,057枚)。8月処分月に向けて「売れているパンツの在庫を最後まで切らさない」が最優先。nlpt320(在庫273)・nlpt329(在庫22)の即再入荷。",
+    },
+    {
+      title: "② 秋物先行品でAW2026を先取りする",
+      axes: "ZOZO-S × 楽天-R × トレンド × 自社",
+      description: "チュール5倍/ティアード4倍/オールインワン25件と夏デコラピーク→次は秋へ × ワンピース15件急増=秋WP先行需要 × AW2026「テクスチャーリッチ」「ハイネック×エレガンス」 × WP・トップスがNOAHL主力カテゴリ。秋物S級2〜3型投入、トップスは「薄手ニット×テクスチャー」、WPは「ミディ丈×素材感」。",
+    },
+    {
+      title: "③ 夏物在庫を「守り切って」8月処分月へバトンタッチ",
+      axes: "ZOZO×楽天共通 × 在庫v7 × 自社",
+      description: "体型カバー需要ピーク/UVカット24件 × 7月末夏物在庫¥992万→8月末¥361万目標(¥566万消化必要) × nl0197在庫254/nlbi016在庫191/nlwp280在庫1,058の処理判断。売れ筋は最後まで欠品させず、動き悪い品番は7月後半から20%OFF→福袋行き。",
+    },
+  ],
+  clearanceCandidates: [
+    { id: "nlwp280", stock: "1,058", sales: "49枚", stockMonths: "21.6ヶ月", plan: "7月福袋＋20%OFF開始→8月40〜60%OFF" },
+    { id: "nltp300", stock: "94", sales: "165枚", stockMonths: "0.6ヶ月", plan: "評価3.82。プロパー消化可だが品質問題。8月OFF候補" },
+    { id: "nltp031", stock: "1,568", sales: "897枚", stockMonths: "1.7ヶ月", plan: "7月プロパー→8月20%OFF→8月末40%OFF" },
+  ],
   notes: [
     "7月が秋物含む最終仕入窓口（8月予算ゼロ）",
     "夏物在庫目標: ¥992万（7月）→ ¥361万（8月末）まで圧縮",
+    "7月末総在庫目標 ¥2,201万（春¥243＋夏¥992＋秋¥478＋冬¥488）",
     "TikTok LIVEを在庫消化チャネルとして初活用",
     "ZOZOは中旬が秋物納品デッドライン",
   ],

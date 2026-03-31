@@ -202,19 +202,31 @@ export default function MonthSection({ plan }: { plan: MonthPlan }) {
                 <SectionHeader>再入荷リスト</SectionHeader>
                 <div className="space-y-2">
                   {plan.restockItems.map((r) => {
+                    const priorityColor = r.priority === "最優先" ? "bg-red-100 text-red-700"
+                      : r.priority === "高" ? "bg-amber-100 text-amber-700"
+                      : r.priority === "中" ? "bg-blue-50 text-blue-600"
+                      : r.priority === "低" ? "bg-gray-100 text-gray-500"
+                      : null;
                     const actionColor =
-                      r.action === "緊急追加" || r.action === "在庫危機"
+                      r.action === "緊急追加" || r.action === "在庫危機" || r.action === "即時発注"
                         ? "bg-red-100 text-red-700"
-                        : r.action === "4月リスク"
+                        : r.action === "4月リスク" || r.action === "欠品防止"
                           ? "bg-amber-100 text-amber-700"
-                          : "bg-emerald-50 text-emerald-700";
+                          : r.action === "追加不要"
+                            ? "bg-gray-100 text-gray-500"
+                            : "bg-emerald-50 text-emerald-700";
                     return (
                       <div
                         key={r.id}
                         className="flex items-center justify-between gap-2 text-[12px]"
                       >
+                        {r.priority && priorityColor && (
+                          <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold whitespace-nowrap ${priorityColor}`}>
+                            {r.priority}
+                          </span>
+                        )}
                         <div className="min-w-0 flex-1">
-                          <span className="font-mono text-text-muted text-[10px]">{r.id}</span>
+                          <span className="font-mono text-brand-dark font-bold text-[10px]">{r.id}</span>
                           <span className="ml-1 font-medium text-text-primary">{r.name}</span>
                         </div>
                         <span className="text-text-secondary tabular-nums whitespace-nowrap">
@@ -223,13 +235,15 @@ export default function MonthSection({ plan }: { plan: MonthPlan }) {
                         <span className="text-text-muted tabular-nums whitespace-nowrap">
                           残{r.currentStock}
                         </span>
+                        {r.stockMonths && (
+                          <span className="text-[10px] text-text-muted tabular-nums whitespace-nowrap">
+                            {r.stockMonths}
+                          </span>
+                        )}
                         <span
                           className={`px-1.5 py-0.5 rounded text-[10px] font-semibold whitespace-nowrap ${actionColor}`}
                         >
                           {r.action}
-                        </span>
-                        <span className="font-bold text-text-heading tabular-nums whitespace-nowrap">
-                          {r.budget}
                         </span>
                       </div>
                     );
@@ -296,6 +310,73 @@ export default function MonthSection({ plan }: { plan: MonthPlan }) {
                   </div>
                 </div>
               )}
+            </div>
+          )}
+
+          {/* ── 4軸クロス総評 ── */}
+          {plan.crossAnalysis && plan.crossAnalysis.length > 0 && (
+            <div>
+              <SectionHeader>4軸クロス総評：今月やるべきこと</SectionHeader>
+              <div className="space-y-3">
+                {plan.crossAnalysis.map((item) => (
+                  <div key={item.title} className="rounded-xl border border-brand/15 bg-gradient-to-r from-brand/5 to-transparent p-4">
+                    <div className="flex items-start gap-2 mb-2">
+                      <h4 className="text-[13px] font-bold text-text-heading leading-snug">
+                        {item.title}
+                      </h4>
+                    </div>
+                    <p className="text-[10px] font-semibold text-brand mb-1.5">{item.axes}</p>
+                    <p className="text-[12px] text-text-primary leading-relaxed">{item.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── マーケットレポート詳細 ── */}
+          {plan.marketReports && plan.marketReports.length > 0 && (
+            <div>
+              <SectionHeader>市場分析レポート</SectionHeader>
+              <div className="space-y-3">
+                {plan.marketReports.map((report) => (
+                  <div key={report.title} className="rounded-xl bg-base p-4">
+                    <h4 className="text-[12px] font-bold text-text-heading mb-2 flex items-center gap-2">
+                      <span className={`inline-block w-2 h-2 rounded-full ${
+                        report.title.includes("ZOZO") ? "bg-gray-800"
+                          : report.title.includes("楽天") ? "bg-red-500"
+                          : report.title.includes("AW") || report.title.includes("トレンド") ? "bg-purple-500"
+                          : "bg-brand"
+                      }`} />
+                      {report.title}
+                    </h4>
+                    <p className="text-[11px] text-text-secondary leading-relaxed mb-2">{report.body}</p>
+                    {report.noahlInsight && (
+                      <div className="mt-2 pt-2 border-t border-brand/10">
+                        <p className="text-[10px] font-bold text-brand uppercase tracking-wider mb-1">NOAHLへの示唆</p>
+                        <p className="text-[11px] text-text-primary leading-relaxed font-medium">{report.noahlInsight}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── OFF消化候補 ── */}
+          {plan.clearanceCandidates && plan.clearanceCandidates.length > 0 && (
+            <div className="rounded-xl bg-red-50/50 border border-red-200/50 p-4">
+              <SectionHeader>OFF消化候補</SectionHeader>
+              <div className="space-y-2">
+                {plan.clearanceCandidates.map((item) => (
+                  <div key={item.id} className="flex items-center gap-3 text-[12px]">
+                    <span className="font-mono text-red-600 font-bold min-w-[80px]">{item.id}</span>
+                    <span className="text-text-muted tabular-nums whitespace-nowrap">在庫{item.stock}</span>
+                    <span className="text-text-muted tabular-nums whitespace-nowrap">{item.sales}/月</span>
+                    <span className="text-red-500 font-bold tabular-nums whitespace-nowrap">{item.stockMonths}</span>
+                    <span className="text-text-secondary flex-1">{item.plan}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 

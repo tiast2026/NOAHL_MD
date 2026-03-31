@@ -10,6 +10,7 @@ export type Product = {
   cost?: string;
   salesRecord?: string;
   fourAxis?: { zozo: string; rakuten: string; trend: string; internal: string };
+  fourAxisDetail?: { zozo: string; rakuten: string; trend: string; internal: string };
 };
 
 export type WeeklyPlan = {
@@ -32,6 +33,8 @@ export type RestockItem = {
   currentStock: string;
   action: string;
   budget: string;
+  priority?: "最優先" | "高" | "中" | "低";
+  stockMonths?: string;
 };
 
 export type MarketInsight = {
@@ -42,6 +45,26 @@ export type MarketInsight = {
 export type TrendItem = {
   name: string;
   score: number;
+};
+
+export type CrossAnalysis = {
+  title: string;
+  axes: string;
+  description: string;
+};
+
+export type ClearanceItem = {
+  id: string;
+  stock: string;
+  sales: string;
+  stockMonths: string;
+  plan: string;
+};
+
+export type MarketReport = {
+  title: string;
+  body: string;
+  noahlInsight?: string;
 };
 
 export type MonthPlan = {
@@ -59,8 +82,11 @@ export type MonthPlan = {
   budget?: BudgetItem[];
   restockItems?: RestockItem[];
   marketInsights?: MarketInsight[];
+  marketReports?: MarketReport[];
   trends?: TrendItem[];
   inventory: { target: string; ratio: string };
+  crossAnalysis?: CrossAnalysis[];
+  clearanceCandidates?: ClearanceItem[];
   successPatterns?: string[];
   failurePatterns?: string[];
   notes: string[];
