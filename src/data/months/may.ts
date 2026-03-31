@@ -28,7 +28,7 @@ export const may: MonthPlan = {
   products: [
     {
       id: "nltp031", name: "柄シアーブラウス（ドット/ストライプ）",
-      imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/2402/nltp031-1.jpg", link: "#", tier: "S",
+      imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/2402/nltp031-1.jpg", link: "https://item.rakuten.co.jp/noahl/nltp031-2307/", tier: "S",
       price: "¥5,390〜5,980", colors: 3, units: 300, cost: "¥36万",
       salesRecord: "nltp031後継 1,929枚実績ベース",
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
@@ -49,7 +49,7 @@ export const may: MonthPlan = {
     },
     {
       id: "nltp244", name: "acco コラボ トップス",
-      imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202502/nltp244-1r.jpg", link: "#", tier: "S",
+      imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202502/nltp244-1r.jpg", link: "https://item.rakuten.co.jp/noahl/nltp244-2502/", tier: "S",
       price: "¥5,980", colors: 3, units: 360, cost: "¥43.2万",
       salesRecord: "nltp244 年間最強コンボ 3月→5月持続895枚",
       fourAxis: { zozo: "○", rakuten: "◎", trend: "○", internal: "◎" },
