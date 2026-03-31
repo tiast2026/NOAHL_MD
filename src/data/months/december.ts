@@ -26,7 +26,7 @@ export const december: MonthPlan = {
   ],
   products: [
     {
-      id: "S1: ケーブルニットタートル", name: "ケーブルニットタートルネックプルオーバー",
+      id: "nltp500", name: "ケーブルニットタートルネックプルオーバー",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202603/nltp500-1r.jpg",
       link: "#", tier: "S",
       price: "¥7,980", units: 100, cost: "¥22万",
@@ -34,7 +34,7 @@ export const december: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "S2: ウール風フリース裏地パンツ", name: "ウール風センタープレスワイドパンツ（フリース裏地）",
+      id: "nlpt504", name: "ウール風センタープレスワイドパンツ（フリース裏地）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202602/nlpt504-1r.jpg",
       link: "#", tier: "S",
       price: "¥7,980", units: 90, cost: "¥19.8万",
@@ -42,21 +42,21 @@ export const december: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "A1: ベロアプリーツミディWP", name: "ベロアプリーツミディワンピース",
+      id: "nltp507", name: "ベロアプリーツミディワンピース",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202603/nltp507-1r.jpg",
       link: "#", tier: "A",
       price: "¥8,980", units: 70, cost: "¥18.9万",
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "A2: モヘアバルーンスリーブニット", name: "モヘアバルーンスリーブニット",
+      id: "nltp492", name: "モヘアバルーンスリーブニット",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202603/nltp492-1r.jpg",
       link: "#", tier: "A",
       price: "¥6,980", units: 70, cost: "¥15.4万",
       fourAxis: { zozo: "○", rakuten: "◎", trend: "◎", internal: "○" },
     },
     {
-      id: "A3: ツイードフレアミディスカート", name: "ツイードフレアミディスカート",
+      id: "nlsk235", name: "ツイードフレアミディスカート",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202502/nlsk235-1r.jpg",
       link: "#", tier: "A",
       price: "¥6,980", units: 60, cost: "¥14.4万",
@@ -64,21 +64,21 @@ export const december: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "A4: ボアラインフードコート", name: "ボアラインフードコート",
+      id: "nltp497", name: "ボアラインフードコート",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202603/nltp497-1r.jpg",
       link: "#", tier: "A",
       price: "¥12,980", units: 60, cost: "¥22.8万",
       fourAxis: { zozo: "○", rakuten: "◎", trend: "◎", internal: "○" },
     },
     {
-      id: "M1: ウールチェスターコート", name: "ウールチェスターコート（メーカー）",
+      id: "nlot443", name: "ウールチェスターコート（メーカー）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202512/nlot443-1r.jpg",
       link: "#", tier: "maker",
       price: "¥14,980", units: 30, cost: "¥30万",
       salesRecord: "高価格帯アンカー（nlmot007パターン）",
     },
     {
-      id: "M2: ニット×スカートセットアップ", name: "ニット×スカートセットアップ（メーカー）",
+      id: "nlsk235-set", name: "ニット×スカートセットアップ（メーカー）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202502/nlsk235-1r.jpg",
       link: "#", tier: "maker",
       price: "¥9,980", units: 40, cost: "¥28万",

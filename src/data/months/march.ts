@@ -27,7 +27,7 @@ export const march: MonthPlan = {
   ],
   products: [
     {
-      id: "S1: コラボ春メッシュニット",
+      id: "nltp244",
       name: "acco コラボ メッシュニット",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202502/nltp244-1r.jpg",
       link: "#",
@@ -40,7 +40,7 @@ export const march: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "S2: 春シアーシャツ（新色柄）",
+      id: "nltp031",
       name: "シアーシャツ 新色・新柄",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/2402/nltp031-1.jpg",
       link: "#",
@@ -53,7 +53,7 @@ export const march: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "A1: レースドッキングインナー",
+      id: "nlbi004",
       name: "レースドッキングインナー",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/2402/nlbi004-1.jpg",
       link: "#",
@@ -66,7 +66,7 @@ export const march: MonthPlan = {
       fourAxis: { zozo: "○", rakuten: "○", trend: "◎", internal: "◎" },
     },
     {
-      id: "A2: ボウタイブラウス",
+      id: "A2-bowtie",
       name: "ボウタイブラウス",
       imageUrl: "https://placehold.co/400x500/F8F6F3/C4A882?text=A2+Bow",
       link: "#",
@@ -78,9 +78,9 @@ export const march: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "△" },
     },
     {
-      id: "A3: スプリングカーディガン",
+      id: "nlc076",
       name: "シアーニット/配色 カーディガン",
-      imageUrl: "https://placehold.co/400x500/F8F6F3/C4A882?text=A3+Cardi",
+      imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/202404/nlc076-1.jpg",
       link: "#",
       tier: "A",
       price: "¥1,100/原価",
@@ -91,7 +91,7 @@ export const march: MonthPlan = {
       fourAxis: { zozo: "○", rakuten: "○", trend: "◎", internal: "◎" },
     },
     {
-      id: "B1: ストライプシアーシャツ",
+      id: "B1-stripe",
       name: "ストライプシアーシャツ",
       imageUrl: "https://placehold.co/400x500/F8F6F3/C4A882?text=B1+Stripe",
       link: "#",
@@ -102,7 +102,7 @@ export const march: MonthPlan = {
       cost: "¥9.6万",
     },
     {
-      id: "B2: シャツドレス（春コットン）",
+      id: "B2-dress",
       name: "シャツドレス 春コットン",
       imageUrl: "https://placehold.co/400x500/F8F6F3/C4A882?text=B2+Dress",
       link: "#",
@@ -113,7 +113,7 @@ export const march: MonthPlan = {
       cost: "¥12万",
     },
     {
-      id: "B3: 春ポンチパンツ",
+      id: "B3-pants",
       name: "春ポンチパンツ",
       imageUrl: "https://placehold.co/400x500/F8F6F3/C4A882?text=B3+Pants",
       link: "#",
@@ -123,7 +123,7 @@ export const march: MonthPlan = {
       cost: "¥7.2万",
     },
     {
-      id: "B4: メローリブニット",
+      id: "B4-rib",
       name: "メローリブニット（レイヤリング）",
       imageUrl: "https://placehold.co/400x500/F8F6F3/C4A882?text=B4+Rib",
       link: "#",
@@ -134,7 +134,7 @@ export const march: MonthPlan = {
       cost: "¥6.4万",
     },
     {
-      id: "M1: デザイナーズアクセサリー",
+      id: "M1-accessory",
       name: "デザイナーズアクセサリー",
       imageUrl: "https://placehold.co/400x500/F8F6F3/C4A882?text=M1+Acc",
       link: "#",
@@ -143,7 +143,7 @@ export const march: MonthPlan = {
       salesRecord: "小物カテゴリ開始・客単価UP",
     },
     {
-      id: "M2: デザイナーズカットソー",
+      id: "M2-cutsaw",
       name: "デザイナーズカットソー",
       imageUrl: "https://placehold.co/400x500/F8F6F3/C4A882?text=M2+Cut",
       link: "#",

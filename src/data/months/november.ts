@@ -25,14 +25,14 @@ export const november: MonthPlan = {
   ],
   products: [
     {
-      id: "S1: コントラストフリンジニット", name: "コントラストフリンジニットプルオーバー",
+      id: "nltp483", name: "コントラストフリンジニットプルオーバー",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202601/nltp483-1r.jpg",
       link: "#", tier: "S",
       price: "¥7,980", colors: 3, units: 240, cost: "¥45万",
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "S2: フリース裏地タックパンツ", name: "フリース裏地センタープレスタックパンツ",
+      id: "nlpt438", name: "フリース裏地センタープレスタックパンツ",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202510/nlpt438-1r.jpg",
       link: "#", tier: "S",
       price: "¥7,980", colors: 1, units: 490, cost: "¥95.6万",
@@ -40,7 +40,7 @@ export const november: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "S3: エコファーショートブルゾン", name: "エコファーショートブルゾン（自社OEM）",
+      id: "nlot443", name: "エコファーショートブルゾン（自社OEM）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202512/nlot443-1r.jpg",
       link: "#", tier: "S",
       price: "¥9,880", colors: 2, units: 150, cost: "¥48万",
@@ -48,21 +48,21 @@ export const november: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "◎" },
     },
     {
-      id: "A1: モヘアシャギーカーディガン", name: "モヘアシャギーカーディガン",
+      id: "nltp472", name: "モヘアシャギーカーディガン",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202602/nltp472-1r.jpg",
       link: "#", tier: "A",
       units: 200, cost: "¥27.2万",
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "A2: バイカラーリボンニットWP", name: "バイカラーリボンニットWP",
+      id: "nlwp473", name: "バイカラーリボンニットWP",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202601/nlwp473-1r.jpg",
       link: "#", tier: "A",
       units: 200, cost: "¥34万",
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "◎" },
     },
     {
-      id: "A3: コーデュロイワイドパンツ", name: "コーデュロイワイドパンツ",
+      id: "nlxn30705", name: "コーデュロイワイドパンツ",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202509/nlxn30705-1r.jpg",
       link: "#", tier: "A",
       units: 280, cost: "¥36.4万",
@@ -70,7 +70,7 @@ export const november: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "A4: フリースロゴスウェット", name: "フリースロゴスウェット",
+      id: "nltp484", name: "フリースロゴスウェット",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202601/nltp484-1r.jpg",
       link: "#", tier: "A",
       units: 200, cost: "¥24万",

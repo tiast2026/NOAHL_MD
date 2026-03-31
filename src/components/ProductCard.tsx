@@ -1,4 +1,6 @@
-import type { Product } from "@/data/md-plan";
+"use client";
+
+import type { Product } from "@/data/types";
 
 const tierStyles: Record<Product["tier"], { label: string; bg: string }> = {
   S: { label: "S", bg: "bg-gradient-to-r from-amber-500 to-amber-600 text-white" },
@@ -7,6 +9,20 @@ const tierStyles: Record<Product["tier"], { label: string; bg: string }> = {
   restock: { label: "再入荷", bg: "bg-emerald-600 text-white" },
   maker: { label: "仕入", bg: "bg-official text-white" },
 };
+
+/** 画像URLまたはIDから品番を抽出 */
+function extractProductCode(product: Product): string {
+  // IDが実品番っぽい場合（nltp, nlpt, nlwp, nlbi, nl0, nlc, nlsk, nlda, nlot, nlxn で始まる）
+  const idBase = product.id.split(":")[0].trim().toLowerCase();
+  if (/^(nltp|nlpt|nlwp|nlbi|nl0|nlc0|nlsk|nlda|nlot|nlxn|nlim)/.test(idBase)) {
+    return product.id;
+  }
+  // 画像URLからファイル名を取得 → 品番抽出
+  const match = product.imageUrl.match(/\/([a-z]{2,4}\d{2,}[a-z]?)-/i);
+  if (match) return match[1];
+  // フォールバック：ティアラベル
+  return product.id.replace(/[:：].*$/, "").trim();
+}
 
 function FourAxisBadge({ label, value }: { label: string; value: string }) {
   const color =
@@ -21,6 +37,7 @@ function FourAxisBadge({ label, value }: { label: string; value: string }) {
 
 export default function ProductCard({ product }: { product: Product }) {
   const tier = tierStyles[product.tier];
+  const productCode = extractProductCode(product);
 
   return (
     <a
@@ -36,6 +53,13 @@ export default function ProductCard({ product }: { product: Product }) {
           src={product.imageUrl}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          onError={(e) => {
+            const img = e.currentTarget;
+            if (!img.dataset.fallback) {
+              img.dataset.fallback = "1";
+              img.src = `https://placehold.co/400x500/F8F6F3/C4A882?text=${encodeURIComponent(productCode)}`;
+            }
+          }}
         />
         <span
           className={`absolute top-2 left-2 px-2 py-0.5 rounded-md text-[11px] font-bold ${tier.bg} shadow-sm`}
@@ -46,8 +70,8 @@ export default function ProductCard({ product }: { product: Product }) {
 
       {/* Info */}
       <div className="p-3 space-y-1.5">
-        <p className="text-[11px] font-mono text-text-muted tracking-wider leading-tight">
-          {product.id}
+        <p className="text-[11px] font-mono text-brand-dark font-bold tracking-wider leading-tight">
+          {productCode}
         </p>
         <p className="text-[13px] font-semibold text-text-heading leading-tight line-clamp-2">
           {product.name}

@@ -25,7 +25,7 @@ export const october: MonthPlan = {
   ],
   products: [
     {
-      id: "S1: ジャガードドッキングニット", name: "ジャガードドッキングニットプルオーバー",
+      id: "nltp393", name: "ジャガードドッキングニットプルオーバー",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202510/nltp393-1r.jpg",
       link: "#", tier: "S",
       price: "¥5,980", units: 300, cost: "¥46.2万",
@@ -33,7 +33,7 @@ export const october: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "S2: ニットフレアWP（バイカラー）", name: "ニットフレアWP（バイカラー）",
+      id: "nltp402", name: "ニットフレアWP（バイカラー）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202509/nltp402-1r.jpg",
       link: "#", tier: "S",
       price: "¥8,980", colors: 3, units: 240, cost: "¥46.2万",
@@ -41,7 +41,7 @@ export const october: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "S3: センタープレスタックパンツ", name: "センタープレスタックパンツ（ハイウエスト）",
+      id: "nlpt438", name: "センタープレスタックパンツ（ハイウエスト）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202510/nlpt438-1r.jpg",
       link: "#", tier: "S",
       price: "¥6,980", colors: 1, units: 560, cost: "¥85.4万",
@@ -49,28 +49,28 @@ export const october: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "A1: シャギーニット", name: "シャギーニット",
+      id: "nltp418", name: "シャギーニット",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202509/nltp418-1r.jpg",
       link: "#", tier: "A",
       units: 200, cost: "¥26万",
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "A2: デニム切替カーディガン", name: "デニム切替カーディガン",
+      id: "nltp444", name: "デニム切替カーディガン",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202512/nltp444-1r.jpg",
       link: "#", tier: "A",
       units: 200, cost: "¥25.6万",
       fourAxis: { zozo: "○", rakuten: "◎", trend: "◎", internal: "○" },
     },
     {
-      id: "A3: ニットプリーツスカート", name: "ニットプリーツスカート",
+      id: "nlsk235", name: "ニットプリーツスカート",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202502/nlsk235-1r.jpg",
       link: "#", tier: "A",
       units: 180, cost: "¥25.2万",
       fourAxis: { zozo: "○", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "A4: Mayoコラボパンツ（継続）", name: "Mayo コラボパンツ（10月継続）",
+      id: "nlpt379", name: "Mayo コラボパンツ（10月継続）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202508/nlpt379-1r.jpg",
       link: "#", tier: "A",
       units: 280, cost: "¥42万",
@@ -78,7 +78,7 @@ export const october: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "○", internal: "◎" },
     },
     {
-      id: "A5: リバーシブルボアブルゾン", name: "リバーシブルボアブルゾン",
+      id: "nltp413", name: "リバーシブルボアブルゾン",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202510/nltp413-1r.jpg",
       link: "#", tier: "A",
       units: 150, cost: "¥22.5万",

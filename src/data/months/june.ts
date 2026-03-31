@@ -26,7 +26,7 @@ export const june: MonthPlan = {
   ],
   products: [
     {
-      id: "S1: リネン風半袖シャツ", name: "リネン風半袖シャツ（nltp288後継）",
+      id: "nltp361", name: "リネン風半袖シャツ（nltp288後継）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202508/nltp361-1r.jpg",
       link: "#", tier: "S",
       price: "¥5,380〜5,980", colors: 3, units: 300, cost: "¥33万",
@@ -34,7 +34,7 @@ export const june: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "S2: フレアキャミワンピ", name: "フレアキャミワンピ（リネン混×アクセントリボン）",
+      id: "nlwp315", name: "フレアキャミワンピ（リネン混×アクセントリボン）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202505/nlwp315-1r.jpg",
       link: "#", tier: "S",
       price: "¥7,980", colors: 3, units: 210, cost: "¥31.5万",
@@ -42,7 +42,7 @@ export const june: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "◎" },
     },
     {
-      id: "S3: カーブデザインパンツ", name: "カーブデザインパンツ（接触冷感）",
+      id: "nlpt320", name: "カーブデザインパンツ（接触冷感）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202504/nlpt320-1r.jpg",
       link: "#", tier: "S",
       price: "¥6,980", colors: 1, units: 350, cost: "¥45.5万",
@@ -50,7 +50,7 @@ export const june: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "A1: ピグメント刺繍T", name: "ピグメント刺繍Tシャツ",
+      id: "nltp500", name: "ピグメント刺繍Tシャツ",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202603/nltp500-1r.jpg",
       link: "#", tier: "A",
       units: 150, cost: "¥15万",
@@ -58,41 +58,41 @@ export const june: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "○", trend: "○", internal: "△" },
     },
     {
-      id: "A2: フレンチスリーブT", name: "フレンチスリーブコットンT（体型カバー）",
+      id: "nltp507", name: "フレンチスリーブコットンT（体型カバー）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202603/nltp507-1r.jpg",
       link: "#", tier: "A",
       units: 180, cost: "¥16.2万",
       fourAxis: { zozo: "○", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "A3: リボンティアードキャミWP", name: "リボンティアードキャミワンピ",
+      id: "nlwp314", name: "リボンティアードキャミワンピ",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202507/nlwp314-1r.jpg",
       link: "#", tier: "A",
       units: 100, cost: "¥13万",
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "A4: レースドッキングキャミ", name: "レースドッキングキャミソール",
+      id: "nlbi004", name: "レースドッキングキャミソール",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/2402/nlbi004-1.jpg",
       link: "#", tier: "A",
       units: 160, cost: "¥14.4万",
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "◎" },
     },
     {
-      id: "A5: UVカットカーディガン", name: "シアーニットカーディガン（UVカット）",
+      id: "nlc076", name: "シアーニットカーディガン（UVカット）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/202404/nlc076-1.jpg",
       link: "#", tier: "A",
       units: 80, cost: "¥8万",
       fourAxis: { zozo: "○", rakuten: "◎", trend: "○", internal: "○" },
     },
     {
-      id: "M1: デザイナースカート", name: "デザイナースカート",
+      id: "nlsk200", name: "デザイナースカート",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/2409/nlsk200-1r.jpg",
       link: "#", tier: "maker",
       cost: "¥20万", salesRecord: "ZOZOマーメイド9件 NOAHLスカート構成ほぼゼロ",
     },
     {
-      id: "M2: デザイナーアクセサリー", name: "デザイナーアクセサリー",
+      id: "nlsk235", name: "デザイナーアクセサリー",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202502/nlsk235-1r.jpg",
       link: "#", tier: "maker",
       cost: "¥20万", salesRecord: "客単価向上",

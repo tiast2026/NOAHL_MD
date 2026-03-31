@@ -25,7 +25,7 @@ export const september: MonthPlan = {
   ],
   products: [
     {
-      id: "S1: コントラストニットカーディガン", name: "コントラストカラーニットカーディガン",
+      id: "nltp431", name: "コントラストカラーニットカーディガン",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202509/nltp431-1r.jpg",
       link: "#", tier: "S",
       price: "¥6,980", colors: 3, units: 300, cost: "¥42万",
@@ -33,14 +33,14 @@ export const september: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "S2: ダブルジップショートパーカー", name: "ダブルジップショートパーカー（ピグメント）",
+      id: "nltp418", name: "ダブルジップショートパーカー（ピグメント）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202509/nltp418-1r.jpg",
       link: "#", tier: "S",
       price: "¥5,980", colors: 3, units: 360, cost: "¥43.2万",
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "S3: accoコラボ秋ニット（追加）", name: "acco コラボ 秋ニット（追加投入）",
+      id: "nltp434", name: "acco コラボ 秋ニット（追加投入）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202509/nltp434-1r.jpg",
       link: "#", tier: "S",
       price: "¥6,980", colors: 3, units: 300, cost: "¥42万",
@@ -48,14 +48,14 @@ export const september: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "A1: テクスチャーニット", name: "テクスチャーニット（各種）",
+      id: "nltp406", name: "テクスチャーニット（各種）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202510/nltp406-1r.jpg",
       link: "#", tier: "A",
       units: 240, cost: "¥28.8万",
       fourAxis: { zozo: "○", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "A2: センタープレスタックパンツ", name: "センタープレスタックパンツ（ハイウエスト）",
+      id: "nlpt438", name: "センタープレスタックパンツ（ハイウエスト）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202510/nlpt438-1r.jpg",
       link: "#", tier: "A",
       units: 420, cost: "¥50.4万",
@@ -63,14 +63,14 @@ export const september: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "A3: ニットロングスカート", name: "ニットロングスカート",
+      id: "nlsk200", name: "ニットロングスカート",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/2409/nlsk200-1r.jpg",
       link: "#", tier: "A",
       units: 150, cost: "¥19.5万",
       fourAxis: { zozo: "○", rakuten: "○", trend: "◎", internal: "○" },
     },
     {
-      id: "W1: accoコラボ冬ニットコート", name: "acco コラボ 冬ニットコート（先行）",
+      id: "nltp444", name: "acco コラボ 冬ニットコート（先行）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202512/nltp444-1r.jpg",
       link: "#", tier: "S",
       price: "¥9,980", colors: 2, units: 160, cost: "¥32万",
@@ -78,14 +78,14 @@ export const september: MonthPlan = {
       fourAxis: { zozo: "◎", rakuten: "◎", trend: "◎", internal: "◎" },
     },
     {
-      id: "W2: 厚手ニットWP（冬先行）", name: "厚手ニットWP（冬先行）",
+      id: "nltp472", name: "厚手ニットWP（冬先行）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202602/nltp472-1r.jpg",
       link: "#", tier: "S",
       price: "¥8,980", colors: 2, units: 180, cost: "¥32.4万",
       fourAxis: { zozo: "○", rakuten: "◎", trend: "◎", internal: "○" },
     },
     {
-      id: "W3: ウール混ワイドパンツ", name: "ウール混ワイドパンツ（冬先行）",
+      id: "nltp475", name: "ウール混ワイドパンツ（冬先行）",
       imageUrl: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2026/202601/nltp475-1r.jpg",
       link: "#", tier: "A",
       price: "¥7,980", colors: 1, units: 280, cost: "¥44.8万",
