@@ -88,11 +88,15 @@ export const july: MonthPlan = {
     { category: "秋物再入荷先行", amount: "¥200万", share: "15%" },
   ],
   restockItems: [
-    { id: "nlpt329", name: "パンツ（7月爆発）", sales: "1,057枚", currentStock: "22", action: "即時発注", budget: "在庫0.02ヶ月分" },
-    { id: "nl0197", name: "ナチュラルタンク", sales: "1,212枚", currentStock: "254", action: "在庫危機", budget: "8月予算ゼロ=最終機会" },
-    { id: "nlpt320", name: "デザインパンツ", sales: "1,112枚", currentStock: "273", action: "欠品防止", budget: "0.2ヶ月分" },
-    { id: "nlbi016", name: "レースインナー", sales: "521枚", currentStock: "191", action: "セット販売", budget: "バンドル必須" },
-    { id: "nlbi022", name: "インナー", sales: "174枚", currentStock: "31", action: "緊急", budget: "枯渇" },
+    { id: "nlpt329", name: "パンツ（7月爆発）", sales: "1,057枚", currentStock: "22", action: "即時発注", budget: "0.02ヶ月分 在庫ほぼゼロ" },
+    { id: "nl0197", name: "ナチュラルタンク", sales: "1,212枚", currentStock: "254", action: "在庫危機", budget: "0.2ヶ月分 8月仕入ゼロ=最終機会" },
+    { id: "nlpt320", name: "デザインパンツ", sales: "1,112枚", currentStock: "273", action: "欠品防止", budget: "0.2ヶ月分 欠品致命的" },
+    { id: "nlbi016", name: "レースインナー", sales: "521枚", currentStock: "191", action: "即時発注", budget: "0.4ヶ月分 セット買いの核" },
+    { id: "nltp288", name: "リネンシャツ（伸長中）", sales: "974枚", currentStock: "302", action: "追加発注", budget: "0.3ヶ月分 Meta広告効果" },
+    { id: "nlbi022", name: "インナー", sales: "174枚", currentStock: "31", action: "追加発注", budget: "0.2ヶ月分 欠品寸前" },
+    { id: "nlda342068", name: "ロングセラー品", sales: "417枚", currentStock: "68", action: "追加発注", budget: "0.2ヶ月分" },
+    { id: "nltp281", name: "トップス", sales: "462枚", currentStock: "154", action: "小ロット追加", budget: "0.3ヶ月分" },
+    { id: "nlwp276", name: "ワンピース（ロングセラー）", sales: "405枚", currentStock: "20", action: "追加発注", budget: "0.05ヶ月分 ほぼ欠品" },
   ],
   marketInsights: [
     { source: "ZOZO", insights: [
@@ -103,11 +107,13 @@ export const july: MonthPlan = {
       "ジャンプスーツ：20→25件 新興カテゴリ",
     ]},
     { source: "楽天", insights: [
-      "体型カバー：28→40件（+43%）",
+      "体型カバー：28→40件（+43%）7月最大KW",
       "水着：9→26件（+189%）",
       "ラッシュガード：13→23件（+77%）",
       "UVカット：19→24件",
+      "ワンピース：8→15件急増。猛暑の「コーデ不要」需要",
       "nlpt329: 楽天比率100%（公式ゼロ）",
+      "nl0197: 楽天1,127枚 楽天比率93%",
     ]},
   ],
   trends: [
@@ -119,9 +125,10 @@ export const july: MonthPlan = {
   ],
   inventory: { target: "¥4,500万（棚卸0.61）", ratio: "0.61" },
   successPatterns: [
-    "nlpt329: 7月新発売→1,057枚（評価4.55/145件）急発進",
-    "nltp288: 6月657→7月974枚成長。公式比率61%でMeta広告成熟",
-    "ボトムス2品番TOP5入り（nlpt320+nlpt329）が定着を示す",
+    "nlpt329: 7月新発売→1,057枚（評価4.55/145件）急発進。楽天100%でメタ広告未投入=さらなる伸び代",
+    "nltp288: 6月657→7月974枚成長。公式比率61%でMeta広告→公式の理想形",
+    "ボトムスTOP5に2品番（nlpt320 1,112枚 + nlpt329 1,057枚）= 第二の柱確立",
+    "nlwp276: 405枚（公式比率43%）7月でもロングセラー維持。在庫20枚で欠品寸前",
   ],
   failurePatterns: [
     "nlwp280: 526→144→49枚死亡螺旋。在庫1,058枚=21.6ヶ月分",
