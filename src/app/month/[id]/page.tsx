@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { mdPlan } from "@/data/md-plan";
 import MonthSection from "@/components/MonthSection";
+import JulySection from "@/components/JulySection";
 
 const MONTH_NAMES = ["", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
 
@@ -92,7 +93,7 @@ export default async function MonthPage({ params }: { params: Promise<{ id: stri
 
       {/* Main Content */}
       <main className="max-w-[1440px] mx-auto px-4 sm:px-6 py-4 pb-16">
-        <MonthSection plan={plan} />
+        {month === 7 ? <JulySection plan={plan} /> : <MonthSection plan={plan} />}
       </main>
 
       {/* Bottom navigation */}
