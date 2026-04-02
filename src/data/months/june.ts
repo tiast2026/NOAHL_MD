@@ -4,8 +4,8 @@ export const june: MonthPlan = {
   month: 6,
   theme: "夏物本格 × リネン × ストックアウト死守",
   subTheme: "リネン系シャツ・体型カバー・UVカットが全軸一致",
-  salesTarget: "¥4,200万",
-  salesRatio: "7.70%",
+  salesTarget: "—",
+  salesRatio: "—",
   totalBudget: "¥2,489万",
   seasonBreakdown: [
     { label: "夏物", amount: "¥3,780万", ratio: "90%" },
@@ -134,7 +134,7 @@ export const june: MonthPlan = {
     { name: "カラーブロック × アクセント", score: 8 },
     { name: "リテラリーシック × プレッピー", score: 8 },
   ],
-  inventory: { target: "¥3,800万", ratio: "0.90" },
+  inventory: { target: "—", ratio: "—" },
   successPatterns: [
     "デザインパンツ × Meta広告 → 公式サイト比率38%（nlpt320パターン）",
     "4軸一致品番の初月投入（nltp288: 初月657枚・評価4.53）",
