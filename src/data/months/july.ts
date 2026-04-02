@@ -183,7 +183,7 @@ export const july: MonthPlan = {
     { name: "リテラリーシック × プレッピー", score: 8 },
     { name: "ストライプリバイバル", score: 7 },
   ],
-  inventory: { target: "¥4,500万（棚卸0.61）", ratio: "0.61" },
+  inventory: { target: "¥4,500万", ratio: "0.61" },
   successPatterns: [
     "nlpt329: 7月新発売→1,057枚（評価4.55/145件）急発進。楽天100%でメタ広告未投入=さらなる伸び代",
     "nltp288: 6月657→7月974枚成長。公式比率61%でMeta広告→公式の理想形",

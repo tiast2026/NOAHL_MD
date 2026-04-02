@@ -98,6 +98,31 @@ function RestockThumb({ id }: { id: string }) {
   );
 }
 
+/** Parse text and render nl* product codes as inline linked thumbnails */
+function RichText({ text, className }: { text: string; className?: string }) {
+  const parts = text.split(/(nl[a-z]{1,4}\d{2,})/gi);
+  if (parts.length === 1) return <span className={className}>{text}</span>;
+  return (
+    <span className={className}>
+      {parts.map((part, i) => {
+        if (/^nl[a-z]{1,4}\d{2,}$/i.test(part)) {
+          const id = part.toLowerCase();
+          return (
+            <a key={i} href={getLink(id)} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 mx-0.5 align-middle group/code">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={getImage(id)} alt={id}
+                className="w-5 h-5 rounded object-cover border border-brand/15 inline-block align-middle" />
+              <span className="font-mono font-bold text-brand-dark underline decoration-brand/30 group-hover/code:decoration-brand">{part}</span>
+            </a>
+          );
+        }
+        return <span key={i}>{part}</span>;
+      })}
+    </span>
+  );
+}
+
 const budgetColors = ["bg-brand", "bg-blue-500", "bg-emerald-500", "bg-amber-400"];
 
 /* ══════════════════════════════════════════
@@ -200,7 +225,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                           return <span key={axis} className={`px-2.5 py-0.5 rounded-full text-[12px] font-bold ${c}`}>{axis}</span>;
                         })}
                       </div>
-                      <p className="text-[13px] text-text-secondary leading-relaxed flex-1">{item.description}</p>
+                      <p className="text-[13px] text-text-secondary leading-relaxed flex-1"><RichText text={item.description} /></p>
                     </div>
                   );
                 })}
@@ -266,24 +291,38 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
             <SectionHeader id="jul-budget-h">予算検算{plan.totalBudget ? `（合計 ${plan.totalBudget}）` : ""}</SectionHeader>
             {plan.budgetDetail ? (
               <div className="overflow-x-auto">
-                <table className="w-full text-[14px]">
+                <table className="w-full text-[14px] border-collapse">
                   <thead>
-                    <tr className="bg-emerald-50">
-                      <th className="text-left px-4 py-3 font-semibold text-emerald-800 rounded-l-lg">区分</th>
-                      <th className="text-right px-4 py-3 font-semibold text-emerald-800">金額</th>
-                      <th className="text-left px-4 py-3 font-semibold text-emerald-800 rounded-r-lg">備考</th>
+                    <tr>
+                      <th className="text-left px-4 py-3 font-semibold text-emerald-800 bg-emerald-50 border-b-2 border-emerald-200 rounded-tl-lg">区分</th>
+                      <th className="text-right px-4 py-3 font-semibold text-emerald-800 bg-emerald-50 border-b-2 border-emerald-200 w-32">金額</th>
+                      <th className="text-left px-4 py-3 font-semibold text-emerald-800 bg-emerald-50 border-b-2 border-emerald-200 rounded-tr-lg">備考</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {plan.budgetDetail.map((row, i) => (
-                      <tr key={row.category} className={`${row.isTotal ? "bg-emerald-50 border-t-2 border-emerald-300" : row.isSubtotal ? "bg-gray-50 border-t border-gray-200" : i % 2 === 1 ? "bg-row-alt" : ""}`}>
-                        <td className={`px-4 py-2.5 ${row.isTotal ? "font-extrabold text-emerald-800 text-[16px]" : row.isSubtotal ? "font-bold text-text-heading pl-8" : "text-text-primary"}`}>
-                          {row.category}
+                    {plan.budgetDetail.map((row) => (
+                      <tr key={row.category} className={
+                        row.isTotal ? "bg-emerald-100/80" : row.isSubtotal ? "bg-emerald-50/50" : "border-b border-brand/5 hover:bg-brand/3"
+                      }>
+                        <td className={`px-4 py-3 ${
+                          row.isTotal ? "font-extrabold text-emerald-800 text-[16px] border-t-2 border-emerald-300"
+                          : row.isSubtotal ? "font-bold text-emerald-700 border-t border-emerald-200"
+                          : "text-text-primary pl-6"
+                        }`}>
+                          {row.isSubtotal ? `── ${row.category}` : row.isTotal ? row.category : row.category}
                         </td>
-                        <td className={`px-4 py-2.5 text-right tabular-nums ${row.isTotal ? "font-extrabold text-emerald-800 text-[16px]" : row.isSubtotal ? "font-bold text-text-heading" : "font-bold text-text-heading"}`}>
+                        <td className={`px-4 py-3 text-right tabular-nums ${
+                          row.isTotal ? "font-extrabold text-emerald-800 text-[16px] border-t-2 border-emerald-300"
+                          : row.isSubtotal ? "font-bold text-emerald-700 border-t border-emerald-200"
+                          : "font-bold text-text-heading"
+                        }`}>
                           {row.amount}
                         </td>
-                        <td className="px-4 py-2.5 text-text-muted text-[13px]">{row.note ?? ""}</td>
+                        <td className={`px-4 py-3 text-[13px] ${
+                          row.isTotal ? "border-t-2 border-emerald-300 text-emerald-700"
+                          : row.isSubtotal ? "border-t border-emerald-200 text-text-muted"
+                          : "text-text-muted"
+                        }`}>{row.note ?? ""}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -330,15 +369,17 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                       <span className={`px-2.5 py-1 rounded text-[12px] font-bold shrink-0 ${tierStyle}`}>{p.tier}</span>
                       <span className="font-mono font-bold text-brand-dark text-[15px] shrink-0">{p.id}</span>
                       <span className="text-[15px] text-text-primary font-medium flex-1 min-w-0 truncate">{p.name}</span>
-                      {p.price && <span className="text-[15px] font-bold text-text-heading tabular-nums shrink-0">{p.price}</span>}
-                      <span className="text-[13px] text-text-muted tabular-nums shrink-0">{p.cost ?? ""}</span>
-                      {p.fourAxis && (
-                        <div className="flex gap-1 shrink-0">
-                          <span className={`text-[14px] ${axisColor(p.fourAxis.zozo)}`}>{p.fourAxis.zozo}</span>
-                          <span className={`text-[14px] ${axisColor(p.fourAxis.rakuten)}`}>{p.fourAxis.rakuten}</span>
-                          <span className={`text-[14px] ${axisColor(p.fourAxis.trend)}`}>{p.fourAxis.trend}</span>
-                          <span className={`text-[14px] ${axisColor(p.fourAxis.internal)}`}>{p.fourAxis.internal}</span>
-                        </div>
+                      {p.price && (
+                        <span className="shrink-0 text-[13px]">
+                          <span className="text-text-muted">価格</span>
+                          <span className="text-[15px] font-bold text-text-heading tabular-nums ml-1">{p.price}</span>
+                        </span>
+                      )}
+                      {p.cost && (
+                        <span className="shrink-0 text-[13px]">
+                          <span className="text-text-muted">仕入</span>
+                          <span className="font-bold text-text-secondary tabular-nums ml-1">{p.cost}</span>
+                        </span>
                       )}
                       <svg className="w-5 h-5 text-text-muted transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
@@ -364,7 +405,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                             <div key={a.label} className="flex items-start gap-2 text-[13px]">
                               <span className={`shrink-0 font-bold ${axisColor(a.value)} min-w-[20px]`}>{a.value}</span>
                               <span className="text-text-muted font-bold shrink-0 min-w-[48px]">{a.label}</span>
-                              <span className="text-text-secondary">{a.detail}</span>
+                              <RichText text={a.detail} className="text-text-secondary" />
                             </div>
                           ))}
                         </div>
@@ -373,7 +414,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                       {p.rationale && (
                         <div className="border-l-2 border-brand pl-3 py-1">
                           <p className="text-[12px] font-bold text-brand uppercase tracking-wider mb-0.5">提案根拠</p>
-                          <p className="text-[13px] text-text-secondary leading-relaxed">{p.rationale}</p>
+                          <p className="text-[13px] text-text-secondary leading-relaxed"><RichText text={p.rationale} /></p>
                         </div>
                       )}
                     </div>
@@ -515,11 +556,11 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                         </svg>
                       </summary>
                       <div className="px-5 pb-5">
-                        <p className="text-[15px] text-text-secondary leading-relaxed">{report.body}</p>
+                        <p className="text-[15px] text-text-secondary leading-relaxed"><RichText text={report.body} /></p>
                         {report.noahlInsight && (
                           <div className="mt-4 border-l-3 border-brand pl-4 py-2 bg-brand/5 rounded-r-lg">
                             <p className="text-[12px] font-bold text-brand uppercase tracking-wider mb-1">NOAHLへの示唆</p>
-                            <p className="text-[15px] text-text-primary leading-relaxed font-medium">{report.noahlInsight}</p>
+                            <p className="text-[15px] text-text-primary leading-relaxed font-medium"><RichText text={report.noahlInsight} /></p>
                           </div>
                         )}
                       </div>
@@ -544,7 +585,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                           </svg>
                         </span>
-                        <p className="text-[15px] text-text-primary leading-relaxed">{s}</p>
+                        <p className="text-[15px] text-text-primary leading-relaxed"><RichText text={s} /></p>
                       </div>
                     ))}
                   </div>
@@ -561,7 +602,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                           </svg>
                         </span>
-                        <p className="text-[15px] text-text-primary leading-relaxed">{f}</p>
+                        <p className="text-[15px] text-text-primary leading-relaxed"><RichText text={f} /></p>
                       </div>
                     ))}
                   </div>
