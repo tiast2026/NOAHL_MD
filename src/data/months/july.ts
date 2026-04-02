@@ -293,6 +293,13 @@ export const july: MonthPlan = {
     { source: "楽天", brand: "LOWRYS FARM", name: "ヨウリュウシャーリングサロペット", price: "-", sales: "¥713万", link: "https://item.rakuten.co.jp/stylife/pd3500/" },
     { source: "楽天", brand: "MARY QUANT", name: "相良刺繍 Tシャツ 限定展開 25SS", price: "-", sales: "¥694万", link: "https://item.rakuten.co.jp/stylife/pd1423/" },
   ],
+  productGroups: [
+    { label: "夏物新作 2型", budget: "¥42万", season: "summer", ids: ["SU1", "SU2"] },
+    { label: "秋物S級 2品番", budget: "¥71万", season: "autumn", ids: ["AS1", "AS2"] },
+    { label: "秋物A級 2品番", budget: "¥56万", season: "autumn", ids: ["AA1", "AA2"] },
+    { label: "秋物B級 1品番", budget: "¥10万", season: "autumn", ids: ["AB1"] },
+  ],
+  restockLabel: "再入荷リスト（夏¥700万＋秋¥200万）",
   notes: [
     "7月が秋物含む最終仕入窓口（8月予算ゼロ）",
     "夏物在庫目標: ¥992万（7月）→ ¥361万（8月末）まで圧縮",

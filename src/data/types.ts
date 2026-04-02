@@ -104,4 +104,8 @@ export type MonthPlan = {
   failurePatterns?: string[];
   competitorProducts?: CompetitorProduct[];
   notes: string[];
+  /** 新作品番のグループ分け（S級/A級/B級など） */
+  productGroups?: { label: string; budget: string; season: "summer" | "autumn"; ids: string[] }[];
+  /** 再入荷セクションの見出し（例: "再入荷リスト（夏¥700万＋秋¥200万）"） */
+  restockLabel?: string;
 };

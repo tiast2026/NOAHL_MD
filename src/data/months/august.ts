@@ -289,6 +289,12 @@ export const august: MonthPlan = {
     { source: "ZOZO", brand: "RANAN", name: "2WAYドレープオフショルリブTシャツ 接触冷感・UV対策", price: "¥1,363", sales: "7206枚", link: "" },
     { source: "ZOZO", brand: "aeae", name: "WEB LOGO CAP", price: "¥6,000", sales: "1790枚", link: "" },
   ],
+  productGroups: [
+    { label: "秋物S級 3品番", budget: "¥148万", season: "autumn", ids: ["AS1", "AS2", "AS3"] },
+    { label: "秋物A級 3品番", budget: "¥68万", season: "autumn", ids: ["AA1", "AA2", "AA3"] },
+    { label: "秋物B級 2品番", budget: "¥25万", season: "autumn", ids: ["AB1", "AB2"] },
+  ],
+  restockLabel: "再入荷リスト（夏¥400万＋秋¥550万）",
   notes: [
     "8月は夏物処分月＋秋物本格投入（在庫管理シートv7準拠）",
     "夏物新規ゼロが鉄則。再入荷¥400万は7月発注分の遅延入荷",

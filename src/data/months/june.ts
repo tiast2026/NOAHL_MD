@@ -143,6 +143,12 @@ export const june: MonthPlan = {
     "初速だけで再発注は危険（nlwp280: 526枚→144枚→49枚死亡）",
     "大量在庫品（nltp031: 1,568枚）は7月から段階値下げ必要",
   ],
+  productGroups: [
+    { label: "夏物S級 3品番", budget: "¥110万", season: "summer", ids: ["nltp361", "nlwp315", "nlpt320"] },
+    { label: "夏物A級 4品番", budget: "¥52万", season: "summer", ids: ["nltp500", "nltp507", "nlwp314", "nlbi004", "nlc076"] },
+    { label: "メーカー仕入 2品番", budget: "¥40万", season: "summer", ids: ["nlsk200", "nlsk235"] },
+  ],
+  restockLabel: "再入荷リスト（欠品防止 ¥1,543万）",
   notes: [
     "新作比率14%（v7目標11%に近い）",
     "再入荷89%が最優先：欠品=4,000枚/月の機会損失",
