@@ -172,7 +172,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ════════════════════════════════════════
              ◆ KPI・サマリー
              ════════════════════════════════════════ */}
-          <div id="jul-summary" className="rounded-2xl bg-gradient-to-r from-brand/15 via-brand/8 to-transparent border-l-4 border-brand px-6 py-5 mb-4 scroll-mt-24">
+          <div id="jul-summary" className="rounded-2xl bg-brand/15 border-l-4 border-brand px-6 py-5 mb-4 scroll-mt-24">
             <p className="text-[20px] font-extrabold text-brand-dark tracking-wider">KPI・サマリー</p>
             <p className="text-[13px] text-text-muted mt-1">売上目標・予算・在庫・今月の重点アクション</p>
           </div>
@@ -238,7 +238,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ════════════════════════════════════════
              ◆ 施策
              ════════════════════════════════════════ */}
-          <div id="jul-measures" className="rounded-2xl bg-gradient-to-r from-blue-100/60 via-blue-50/40 to-transparent border-l-4 border-blue-500 px-6 py-5 mb-4 scroll-mt-24">
+          <div id="jul-measures" className="rounded-2xl bg-blue-100 border-l-4 border-blue-500 px-6 py-5 mb-4 scroll-mt-24">
             <p className="text-[20px] font-extrabold text-blue-800 tracking-wider">施策</p>
             <p className="text-[13px] text-blue-600/70 mt-1">週別スケジュール・イベント</p>
           </div>
@@ -285,7 +285,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ════════════════════════════════════════
              ◆ 仕入予算配分
              ════════════════════════════════════════ */}
-          <div id="jul-procurement" className="rounded-2xl bg-gradient-to-r from-emerald-100/60 via-emerald-50/40 to-transparent border-l-4 border-emerald-500 px-6 py-5 mb-4 scroll-mt-24">
+          <div id="jul-procurement" className="rounded-2xl bg-emerald-100 border-l-4 border-emerald-500 px-6 py-5 mb-4 scroll-mt-24">
             <p className="text-[20px] font-extrabold text-emerald-800 tracking-wider">仕入予算配分</p>
             <p className="text-[13px] text-emerald-600/70 mt-1">予算・新作品番・再入荷・OFF消化</p>
           </div>
@@ -293,46 +293,85 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ── Budget Detail Table ── */}
           <div id="jul-budget">
             <SectionHeader id="jul-budget-h">予算検算{plan.totalBudget ? `（合計 ${plan.totalBudget}）` : ""}</SectionHeader>
-            {plan.budgetDetail ? (
-              <div className="overflow-x-auto">
-                <table className="w-full text-[14px] border-collapse">
-                  <thead>
-                    <tr>
-                      <th className="text-left px-4 py-3 font-semibold text-emerald-800 bg-emerald-50 border-b-2 border-emerald-200 rounded-tl-lg">区分</th>
-                      <th className="text-right px-4 py-3 font-semibold text-emerald-800 bg-emerald-50 border-b-2 border-emerald-200 w-32">金額</th>
-                      <th className="text-left px-4 py-3 font-semibold text-emerald-800 bg-emerald-50 border-b-2 border-emerald-200 rounded-tr-lg">備考</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {plan.budgetDetail.map((row) => (
-                      <tr key={row.category} className={
-                        row.isTotal ? "bg-emerald-100/80" : row.isSubtotal ? "bg-emerald-50/50" : "border-b border-brand/5 hover:bg-brand/3"
-                      }>
-                        <td className={`px-4 py-3 ${
-                          row.isTotal ? "font-extrabold text-emerald-800 text-[16px] border-t-2 border-emerald-300"
-                          : row.isSubtotal ? "font-bold text-emerald-700 border-t border-emerald-200"
-                          : "text-text-primary pl-6"
-                        }`}>
-                          {row.isSubtotal ? `── ${row.category}` : row.isTotal ? row.category : row.category}
-                        </td>
-                        <td className={`px-4 py-3 text-right tabular-nums ${
-                          row.isTotal ? "font-extrabold text-emerald-800 text-[16px] border-t-2 border-emerald-300"
-                          : row.isSubtotal ? "font-bold text-emerald-700 border-t border-emerald-200"
-                          : "font-bold text-text-heading"
-                        }`}>
-                          {row.amount}
-                        </td>
-                        <td className={`px-4 py-3 text-[13px] ${
-                          row.isTotal ? "border-t-2 border-emerald-300 text-emerald-700"
-                          : row.isSubtotal ? "border-t border-emerald-200 text-text-muted"
-                          : "text-text-muted"
-                        }`}>{row.note ?? ""}</td>
+            {plan.budgetDetail ? (() => {
+              // Determine summer vs autumn season per row
+              let currentSeason: "summer" | "autumn" | "total" = "summer";
+              const rows = plan.budgetDetail.map((row) => {
+                if (row.isTotal) currentSeason = "total";
+                else if (row.category.startsWith("秋")) currentSeason = "autumn";
+                return { ...row, season: currentSeason };
+              });
+              // Extract product IDs mentioned in parentheses like （SU1＋SU2）
+              const extractIds = (text: string): string[] => {
+                const m = text.match(/[（(]([^）)]+)[）)]/);
+                if (!m) return [];
+                return m[1].split(/[＋+・]/).map(s => s.trim()).filter(Boolean);
+              };
+              return (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-[14px] border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="text-left px-4 py-3 font-semibold text-emerald-800 bg-emerald-50 border-b-2 border-emerald-200 rounded-tl-lg">区分</th>
+                        <th className="text-right px-4 py-3 font-semibold text-emerald-800 bg-emerald-50 border-b-2 border-emerald-200 w-32">金額</th>
+                        <th className="text-left px-4 py-3 font-semibold text-emerald-800 bg-emerald-50 border-b-2 border-emerald-200 rounded-tr-lg">備考</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : plan.budget && (
+                    </thead>
+                    <tbody>
+                      {rows.map((row) => {
+                        const seasonBg = row.season === "summer"
+                          ? (row.isSubtotal ? "bg-orange-100/70" : "bg-orange-50/40")
+                          : row.season === "autumn"
+                          ? (row.isSubtotal ? "bg-amber-100/70" : "bg-amber-50/40")
+                          : "bg-emerald-100/80";
+                        const seasonBorder = row.season === "summer" ? "border-l-4 border-l-orange-400"
+                          : row.season === "autumn" ? "border-l-4 border-l-amber-500"
+                          : "border-l-4 border-l-emerald-500";
+                        const linkedIds = extractIds(row.category);
+                        const categoryLabel = row.category.replace(/[（(][^）)]+[）)]/, "").trim();
+                        return (
+                          <tr key={row.category} className={`${seasonBg} ${seasonBorder} ${!row.isTotal && !row.isSubtotal ? "border-b border-brand/5" : ""}`}>
+                            <td className={`px-4 py-3 ${
+                              row.isTotal ? "font-extrabold text-emerald-800 text-[16px] border-t-2 border-emerald-300"
+                              : row.isSubtotal ? "font-bold border-t border-emerald-200"
+                              : "text-text-primary pl-6"
+                            } ${row.isSubtotal && row.season === "summer" ? "text-orange-700" : row.isSubtotal && row.season === "autumn" ? "text-amber-700" : ""}`}>
+                              {row.isSubtotal ? `── ${row.category}` : row.isTotal ? row.category : (
+                                <span className="flex items-center gap-2 flex-wrap">
+                                  <span>{linkedIds.length > 0 ? categoryLabel : row.category}</span>
+                                  {linkedIds.map(id => (
+                                    <a key={id} href={`#jul-product-${id}`}
+                                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-brand/10 text-brand-dark text-[12px] font-bold hover:bg-brand/20 transition-colors">
+                                      {id} <span className="text-[10px]">↓</span>
+                                    </a>
+                                  ))}
+                                </span>
+                              )}
+                            </td>
+                            <td className={`px-4 py-3 text-right tabular-nums ${
+                              row.isTotal ? "font-extrabold text-emerald-800 text-[16px] border-t-2 border-emerald-300"
+                              : row.isSubtotal ? `font-bold border-t border-emerald-200 ${row.season === "summer" ? "text-orange-700" : "text-amber-700"}`
+                              : "font-bold text-text-heading"
+                            }`}>
+                              {row.amount}
+                            </td>
+                            <td className={`px-4 py-3 text-[13px] ${
+                              row.isTotal ? "border-t-2 border-emerald-300 text-emerald-700"
+                              : row.isSubtotal ? "border-t border-emerald-200 text-text-muted"
+                              : "text-text-muted"
+                            }`}>{row.note ?? ""}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                  <div className="flex items-center gap-4 mt-2 px-2 text-[12px] text-text-muted">
+                    <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-orange-400" />夏物</span>
+                    <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-sm bg-amber-500" />秋物</span>
+                  </div>
+                </div>
+              );
+            })() : plan.budget && (
               <div className="space-y-3">
                 {plan.budget.map((b, i) => {
                   const pct = parseFloat(b.share) || 0;
@@ -368,7 +407,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                   : "bg-text-secondary text-white";
                 const axisColor = (v: string) => v === "◎" ? "text-emerald-600 font-bold" : v === "○" ? "text-brand" : "text-text-muted";
                 return (
-                  <details key={p.id} className="rounded-xl border border-brand/10 overflow-hidden group">
+                  <details key={p.id} id={`jul-product-${p.id}`} className="rounded-xl border border-brand/10 overflow-hidden group scroll-mt-24">
                     <summary className="px-4 py-3 cursor-pointer flex items-center gap-3 hover:bg-brand/5 transition-colors [&::-webkit-details-marker]:hidden list-none">
                       <span className={`px-2.5 py-1 rounded text-[12px] font-bold shrink-0 ${tierStyle}`}>{p.tier}</span>
                       <span className="font-mono font-bold text-brand-dark text-[15px] shrink-0">{p.id}</span>
@@ -527,7 +566,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ════════════════════════════════════════
              ◆ 分析
              ════════════════════════════════════════ */}
-          <div id="jul-analysis" className="rounded-2xl bg-gradient-to-r from-purple-100/60 via-purple-50/40 to-transparent border-l-4 border-purple-500 px-6 py-5 mb-4 scroll-mt-24">
+          <div id="jul-analysis" className="rounded-2xl bg-purple-100 border-l-4 border-purple-500 px-6 py-5 mb-4 scroll-mt-24">
             <p className="text-[20px] font-extrabold text-purple-800 tracking-wider">分析</p>
             <p className="text-[13px] text-purple-600/70 mt-1">ZOZO・楽天・トレンド・自社実績</p>
           </div>
@@ -643,7 +682,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
              ◆ 他社売れ筋ランキング
              ════════════════════════════════════════ */}
           {plan.competitorProducts && plan.competitorProducts.length > 0 && (<>
-            <div id="jul-competitors" className="rounded-2xl bg-gradient-to-r from-gray-200/60 via-gray-100/40 to-transparent border-l-4 border-gray-500 px-6 py-5 mb-4 scroll-mt-24">
+            <div id="jul-competitors" className="rounded-2xl bg-gray-200 border-l-4 border-gray-500 px-6 py-5 mb-4 scroll-mt-24">
               <p className="text-[20px] font-extrabold text-gray-800 tracking-wider">他社売れ筋ランキング</p>
               <p className="text-[13px] text-gray-500 mt-1">ZOZO・楽天 TOP売上商品</p>
             </div>
