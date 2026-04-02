@@ -97,30 +97,42 @@ function RestockThumb({ id }: { id: string }) {
   );
 }
 
-/** Parse text and render nl* product codes as inline linked thumbnails */
+/** Parse text: split on 。 for line breaks, render nl* codes as linked thumbnails */
 function RichText({ text, className }: { text: string; className?: string }) {
-  const parts = text.split(/(nl[a-z]{1,4}\d{2,})/gi);
-  if (parts.length === 1) return <span className={className}>{text}</span>;
+  // First split by 。 to create sentence blocks
+  const sentences = text.split(/(?<=。)/);
+
+  function renderWithProducts(str: string) {
+    const parts = str.split(/(nl[a-z]{1,4}\d{2,})/gi);
+    return parts.map((part, i) => {
+      if (/^nl[a-z]{1,4}\d{2,}$/i.test(part)) {
+        const id = part.toLowerCase();
+        return (
+          <a key={i} href={getLink(id)} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 mx-0.5 align-middle group/code">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={getImage(id)} alt={id}
+              className="w-5 h-5 rounded object-cover border border-brand/15 inline-block align-middle" />
+            <span className="font-mono font-bold text-brand-dark underline decoration-brand/30 group-hover/code:decoration-brand">{part}</span>
+          </a>
+        );
+      }
+      return <span key={i}>{part}</span>;
+    });
+  }
+
+  if (sentences.length <= 1 && !text.match(/nl[a-z]{1,4}\d{2,}/i)) {
+    return <span className={className}>{text}</span>;
+  }
+
   return (
     <span className={className}>
-      {parts.map((part, i) => {
-        if (/^nl[a-z]{1,4}\d{2,}$/i.test(part)) {
-          const id = part.toLowerCase();
-          return (
-            <span key={i}>
-              <br />
-              <a href={getLink(id)} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 mx-0.5 align-middle group/code">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={getImage(id)} alt={id}
-                  className="w-5 h-5 rounded object-cover border border-brand/15 inline-block align-middle" />
-                <span className="font-mono font-bold text-brand-dark underline decoration-brand/30 group-hover/code:decoration-brand">{part}</span>
-              </a>
-            </span>
-          );
-        }
-        return <span key={i}>{part}</span>;
-      })}
+      {sentences.map((sentence, i) => (
+        <span key={i}>
+          {i > 0 && sentence.trim() && <br />}
+          {renderWithProducts(sentence)}
+        </span>
+      ))}
     </span>
   );
 }
