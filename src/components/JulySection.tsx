@@ -35,7 +35,7 @@ const seasonStrokeColors: Record<string, string> = {
 /* ── Helpers ── */
 function SectionHeader({ id, children }: { id: string; children: React.ReactNode }) {
   return (
-    <h3 id={id} className="text-[17px] font-bold text-text-heading tracking-wide flex items-center gap-2 mb-4 scroll-mt-24">
+    <h3 id={id} className="text-[18px] font-bold text-text-heading tracking-wide flex items-center gap-2 mb-4 scroll-mt-24">
       <span className="w-1.5 h-6 bg-brand rounded-full" />
       {children}
     </h3>
@@ -44,9 +44,9 @@ function SectionHeader({ id, children }: { id: string; children: React.ReactNode
 
 function KpiCard({ label, value, accent, sub }: { label: string; value: string; accent?: boolean; sub?: string }) {
   return (
-    <div className={`rounded-xl px-4 py-3 border ${accent ? "bg-gradient-to-br from-brand/8 to-brand/3 border-brand/15" : "bg-base border-brand/5"}`}>
+    <div className={`rounded-xl px-5 py-4 border ${accent ? "bg-gradient-to-br from-brand/8 to-brand/3 border-brand/15" : "bg-base border-brand/5"}`}>
       <p className="text-[13px] font-semibold text-text-muted uppercase tracking-wider">{label}</p>
-      <p className={`mt-1 text-[26px] font-extrabold tabular-nums leading-tight ${accent ? "text-brand-dark" : "text-text-heading"}`}>{value}</p>
+      <p className={`mt-1 text-[28px] font-extrabold tabular-nums leading-tight ${accent ? "text-brand-dark" : "text-text-heading"}`}>{value}</p>
       {sub && <p className="text-[12px] text-text-muted mt-0.5">{sub}</p>}
     </div>
   );
@@ -166,20 +166,20 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           </div>
         </nav>
 
-        <div className="p-6 space-y-8">
+        <div className="p-6 space-y-10">
 
           {/* ════════════════════════════════════════
              ◆ KPI・サマリー
              ════════════════════════════════════════ */}
           <div id="jul-summary" className="rounded-2xl bg-brand/15 border-l-4 border-brand px-6 py-5 mb-4 scroll-mt-24">
-            <p className="text-[20px] font-extrabold text-brand-dark tracking-wider">KPI・サマリー</p>
+            <p className="text-[22px] font-extrabold text-brand-dark tracking-wider">KPI・サマリー</p>
             <p className="text-[13px] text-text-muted mt-1">売上目標・予算・在庫・今月の重点アクション</p>
           </div>
 
           {/* ── KPI ── */}
           <div id="jul-kpi">
             <SectionHeader id="jul-kpi-h">KPI</SectionHeader>
-            <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="grid grid-cols-3 gap-3 mb-5">
               <KpiCard label="売上目標" value={plan.salesTarget} accent />
               <KpiCard label="仕入予算" value={plan.totalBudget ?? "—"} />
               <KpiCard label="在庫目標" value={plan.inventory.target} />
@@ -204,7 +204,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {plan.crossAnalysis && plan.crossAnalysis.length > 0 && (
             <div id="jul-cross">
               <SectionHeader id="jul-cross-h">今月やるべき3つのこと</SectionHeader>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
                 {plan.crossAnalysis.map((item, i) => {
                   const nums = ["①", "②", "③"];
                   const titleText = item.title.replace(/^[①②③④⑤]\s*/, "");
@@ -238,7 +238,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
              ◆ 施策
              ════════════════════════════════════════ */}
           <div id="jul-measures" className="rounded-2xl bg-blue-100 border-l-4 border-blue-500 px-6 py-5 mb-4 scroll-mt-24">
-            <p className="text-[20px] font-extrabold text-blue-800 tracking-wider">施策</p>
+            <p className="text-[22px] font-extrabold text-blue-800 tracking-wider">施策</p>
             <p className="text-[13px] text-blue-600/70 mt-1">週別スケジュール・イベント</p>
           </div>
 
@@ -285,7 +285,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
              ◆ 仕入予算配分
              ════════════════════════════════════════ */}
           <div id="jul-procurement" className="rounded-2xl bg-emerald-100 border-l-4 border-emerald-500 px-6 py-5 mb-4 scroll-mt-24">
-            <p className="text-[20px] font-extrabold text-emerald-800 tracking-wider">仕入予算配分</p>
+            <p className="text-[22px] font-extrabold text-emerald-800 tracking-wider">仕入予算配分</p>
             <p className="text-[13px] text-emerald-600/70 mt-1">予算・新作品番・再入荷・OFF消化</p>
           </div>
 
@@ -577,7 +577,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
              ◆ 分析
              ════════════════════════════════════════ */}
           <div id="jul-analysis" className="rounded-2xl bg-purple-100 border-l-4 border-purple-500 px-6 py-5 mb-4 scroll-mt-24">
-            <p className="text-[20px] font-extrabold text-purple-800 tracking-wider">分析</p>
+            <p className="text-[22px] font-extrabold text-purple-800 tracking-wider">分析</p>
             <p className="text-[13px] text-purple-600/70 mt-1">ZOZO・楽天・トレンド・自社実績</p>
           </div>
 
@@ -671,7 +671,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
              ════════════════════════════════════════ */}
           {plan.competitorProducts && plan.competitorProducts.length > 0 && (<>
             <div id="jul-competitors" className="rounded-2xl bg-gray-200 border-l-4 border-gray-500 px-6 py-5 mb-4 scroll-mt-24">
-              <p className="text-[20px] font-extrabold text-gray-800 tracking-wider">他社売れ筋ランキング</p>
+              <p className="text-[22px] font-extrabold text-gray-800 tracking-wider">他社売れ筋ランキング</p>
               <p className="text-[13px] text-gray-500 mt-1">ZOZO・楽天 TOP売上商品</p>
             </div>
             <div>
