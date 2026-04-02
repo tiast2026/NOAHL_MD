@@ -244,156 +244,52 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
             </div>
           )}
 
-          {/* ── Restock (prominent, with larger images) ── */}
-          {plan.restockItems && plan.restockItems.length > 0 && (
-            <div id="jul-restock">
-              <SectionHeader id="jul-restock-h">再入荷リスト（夏¥700万＋秋¥200万）</SectionHeader>
-              <div className="space-y-2">
-                {plan.restockItems.map((r) => {
-                  const priorityColor = r.priority === "最優先" ? "bg-red-500 text-white"
-                    : r.priority === "高" ? "bg-amber-500 text-white"
-                    : r.priority === "中" ? "bg-blue-500 text-white"
-                    : "bg-gray-300 text-gray-700";
-                  const urgentBorder = r.priority === "最優先" ? "border-red-300 bg-red-50/30" : "border-gray-100";
-                  const isNl = r.id.startsWith("nl");
-                  return (
-                    <div key={r.id} className={`flex items-center gap-4 rounded-xl border ${urgentBorder} p-3 hover:shadow-sm transition-shadow`}>
-                      {isNl && (
-                        <a href={getLink(r.id)} target="_blank" rel="noopener noreferrer" className="shrink-0">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={getImage(r.id)} alt={r.id}
-                            className="w-16 h-16 rounded-xl object-cover border border-brand/10 hover:shadow-md transition-shadow" />
-                        </a>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          {r.priority && (
-                            <span className={`px-2.5 py-1 rounded-full text-[12px] font-bold ${priorityColor}`}>{r.priority}</span>
-                          )}
-                          <span className="font-mono text-brand-dark font-bold text-[15px]">{r.id}</span>
-                          <span className="font-medium text-text-primary text-[15px]">{r.name}</span>
-                        </div>
-                        <div className="flex items-center gap-4 flex-wrap">
-                          <span className="text-[15px] text-text-heading font-bold tabular-nums">{r.sales}</span>
-                          <span className="text-[14px] text-text-muted tabular-nums">残 {r.currentStock}</span>
-                          {r.stockMonths && <StockHealthBar stockMonths={r.stockMonths} />}
-                          <span className="text-[14px] text-text-secondary font-medium">{r.action}</span>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* ── Clearance ── */}
-          {plan.clearanceCandidates && plan.clearanceCandidates.length > 0 && (
-            <div id="jul-clearance">
-              <SectionHeader id="jul-clearance-h">OFF消化候補</SectionHeader>
-              <div className="overflow-x-auto">
-                <table className="w-full text-[13px]">
-                  <thead>
-                    <tr className="bg-red-50">
-                      <th className="text-left px-3 py-2 font-semibold text-red-700 rounded-l-lg">品番</th>
-                      <th className="text-right px-3 py-2 font-semibold text-red-700">在庫</th>
-                      <th className="text-right px-3 py-2 font-semibold text-red-700">月販</th>
-                      <th className="text-right px-3 py-2 font-semibold text-red-700">在庫月数</th>
-                      <th className="text-left px-3 py-2 font-semibold text-red-700 rounded-r-lg">消化プラン</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {plan.clearanceCandidates.map((item, i) => {
-                      const months = parseFloat(item.stockMonths) || 0;
-                      const severity = months > 6 ? "text-red-600 font-extrabold" : months > 1 ? "text-amber-600 font-bold" : "text-emerald-600";
-                      const isNl = item.id.startsWith("nl");
-                      return (
-                        <tr key={item.id} className={i % 2 === 1 ? "bg-red-50/30" : ""}>
-                          <td className="px-3 py-2">
-                            <div className="flex items-center gap-2">
-                              {isNl && (
-                                <a href={getLink(item.id)} target="_blank" rel="noopener noreferrer" className="shrink-0">
-                                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                                  <img src={getImage(item.id)} alt={item.id} className="w-10 h-10 rounded-lg object-cover border border-red-200" />
-                                </a>
-                              )}
-                              <span className="font-mono font-bold text-red-700">{item.id}</span>
-                            </div>
-                          </td>
-                          <td className="px-3 py-2 text-right tabular-nums font-bold">{item.stock}</td>
-                          <td className="px-3 py-2 text-right tabular-nums">{item.sales}</td>
-                          <td className={`px-3 py-2 text-right tabular-nums ${severity}`}>{item.stockMonths}</td>
-                          <td className="px-3 py-2 text-text-secondary">{item.plan}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {/* ── Products (compact table) ── */}
-          <div id="jul-products">
-            <SectionHeader id="jul-products-h">新作品番設計（{plan.products.length}型）</SectionHeader>
-            <div className="overflow-x-auto">
-              <table className="w-full text-[14px]">
-                <thead>
-                  <tr className="bg-base">
-                    <th className="text-left px-3 py-3 font-semibold text-text-secondary rounded-l-lg w-12">ランク</th>
-                    <th className="text-left px-3 py-3 font-semibold text-text-secondary">企画コード</th>
-                    <th className="text-left px-3 py-3 font-semibold text-text-secondary">商品名</th>
-                    <th className="text-right px-3 py-3 font-semibold text-text-secondary">価格</th>
-                    <th className="text-right px-3 py-3 font-semibold text-text-secondary">SKU</th>
-                    <th className="text-right px-3 py-3 font-semibold text-text-secondary">仕入額</th>
-                    <th className="text-center px-2 py-3 font-semibold text-text-secondary">ZOZO</th>
-                    <th className="text-center px-2 py-3 font-semibold text-text-secondary">楽天</th>
-                    <th className="text-center px-2 py-3 font-semibold text-text-secondary">トレンド</th>
-                    <th className="text-center px-2 py-3 font-semibold text-text-secondary rounded-r-lg">自社</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {plan.products.map((p, i) => {
-                    const tierStyle = p.tier === "S" ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white"
-                      : p.tier === "A" ? "bg-gradient-to-r from-brand to-brand-dark text-white"
-                      : "bg-text-secondary text-white";
-                    const axisColor = (v: string) => v === "◎" ? "text-emerald-600 font-bold" : v === "○" ? "text-brand" : "text-text-muted";
-                    return (
-                      <tr key={p.id} className={`${i % 2 === 1 ? "bg-row-alt" : ""} hover:bg-brand/5 transition-colors`}>
-                        <td className="px-3 py-3">
-                          <span className={`px-2.5 py-1 rounded text-[12px] font-bold ${tierStyle}`}>{p.tier}</span>
-                        </td>
-                        <td className="px-3 py-3 font-mono font-bold text-brand-dark text-[15px] whitespace-nowrap">{p.id}</td>
-                        <td className="px-3 py-3 text-text-primary font-medium max-w-[280px]">
-                          <span className="line-clamp-1">{p.name}</span>
-                        </td>
-                        <td className="px-3 py-3 text-right font-bold text-text-heading tabular-nums whitespace-nowrap">{p.price ?? "—"}</td>
-                        <td className="px-3 py-3 text-right tabular-nums text-text-muted whitespace-nowrap">
-                          {p.colors && p.units ? `${p.colors}色×${Math.round(p.units / p.colors)}=${p.units}枚` : p.units ? `${p.units}枚` : "—"}
-                        </td>
-                        <td className="px-3 py-3 text-right tabular-nums text-text-secondary whitespace-nowrap">{p.cost ?? "—"}</td>
-                        {p.fourAxis ? (
-                          <>
-                            <td className={`px-2 py-3 text-center text-[16px] ${axisColor(p.fourAxis.zozo)}`}>{p.fourAxis.zozo}</td>
-                            <td className={`px-2 py-3 text-center text-[16px] ${axisColor(p.fourAxis.rakuten)}`}>{p.fourAxis.rakuten}</td>
-                            <td className={`px-2 py-3 text-center text-[16px] ${axisColor(p.fourAxis.trend)}`}>{p.fourAxis.trend}</td>
-                            <td className={`px-2 py-3 text-center text-[16px] ${axisColor(p.fourAxis.internal)}`}>{p.fourAxis.internal}</td>
-                          </>
-                        ) : (
-                          <td colSpan={4} className="px-2 py-3 text-center text-text-muted">—</td>
-                        )}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+          {/* ── Events (under 施策) ── */}
+          <div id="jul-events" className="rounded-xl bg-base p-5">
+            <SectionHeader id="jul-events-h">イベント・施策</SectionHeader>
+            <div className="flex flex-wrap gap-2">
+              {plan.events.map((ev) => (
+                <span key={ev} className="px-3 py-2 rounded-lg bg-blue-50 text-[14px] font-medium text-blue-700 border border-blue-200">{ev}</span>
+              ))}
             </div>
           </div>
 
-          {/* ── Budget ── */}
-          {plan.budget && plan.budget.length > 0 && (
-            <div id="jul-budget" className="rounded-xl bg-base p-5">
-              <SectionHeader id="jul-budget-h">仕入予算配分{plan.totalBudget ? `（合計 ${plan.totalBudget}）` : ""}</SectionHeader>
+          {/* ════════════════════════════════════════
+             ◆ 仕入予算配分
+             ════════════════════════════════════════ */}
+          <div id="jul-procurement" className="rounded-xl bg-gradient-to-r from-emerald-50 to-emerald-50/30 border border-emerald-200 px-5 py-3 mb-2 scroll-mt-24">
+            <p className="text-[15px] font-bold text-emerald-700 tracking-wider">◆ 仕入予算配分</p>
+          </div>
+
+          {/* ── Budget Detail Table ── */}
+          <div id="jul-budget">
+            <SectionHeader id="jul-budget-h">予算検算{plan.totalBudget ? `（合計 ${plan.totalBudget}）` : ""}</SectionHeader>
+            {plan.budgetDetail ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-[14px]">
+                  <thead>
+                    <tr className="bg-emerald-50">
+                      <th className="text-left px-4 py-3 font-semibold text-emerald-800 rounded-l-lg">区分</th>
+                      <th className="text-right px-4 py-3 font-semibold text-emerald-800">金額</th>
+                      <th className="text-left px-4 py-3 font-semibold text-emerald-800 rounded-r-lg">備考</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {plan.budgetDetail.map((row, i) => (
+                      <tr key={row.category} className={`${row.isTotal ? "bg-emerald-50 border-t-2 border-emerald-300" : row.isSubtotal ? "bg-gray-50 border-t border-gray-200" : i % 2 === 1 ? "bg-row-alt" : ""}`}>
+                        <td className={`px-4 py-2.5 ${row.isTotal ? "font-extrabold text-emerald-800 text-[16px]" : row.isSubtotal ? "font-bold text-text-heading pl-8" : "text-text-primary"}`}>
+                          {row.category}
+                        </td>
+                        <td className={`px-4 py-2.5 text-right tabular-nums ${row.isTotal ? "font-extrabold text-emerald-800 text-[16px]" : row.isSubtotal ? "font-bold text-text-heading" : "font-bold text-text-heading"}`}>
+                          {row.amount}
+                        </td>
+                        <td className="px-4 py-2.5 text-text-muted text-[13px]">{row.note ?? ""}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : plan.budget && (
               <div className="space-y-3">
                 {plan.budget.map((b, i) => {
                   const pct = parseFloat(b.share) || 0;
@@ -416,61 +312,181 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                   );
                 })}
               </div>
-            </div>
-          )}
-
-          {/* ── Events ── */}
-          <div id="jul-events" className="rounded-xl bg-base p-5">
-            <SectionHeader id="jul-events-h">イベント・施策</SectionHeader>
-            <div className="flex flex-wrap gap-2">
-              {plan.events.map((ev) => (
-                <span key={ev} className="px-3 py-2 rounded-lg bg-brand/10 text-[14px] font-medium text-brand-dark">{ev}</span>
-              ))}
-            </div>
+            )}
           </div>
 
-          {/* ════════════════════════════════════════
-             BLOCK 2: MARKET DATA & REASONING
-             ════════════════════════════════════════ */}
-          <div className="rounded-xl bg-gradient-to-r from-purple-500/5 to-transparent border border-purple-500/10 px-5 py-3 mt-4">
-            <p className="text-[14px] font-bold text-purple-700 tracking-wider uppercase">Market Data — なぜこの計画なのか</p>
-          </div>
-
-          {/* ── Cross Analysis ── */}
-          {plan.crossAnalysis && plan.crossAnalysis.length > 0 && (
-            <div id="jul-cross">
-              <SectionHeader id="jul-cross-h">4軸クロス総評：今月やるべきこと</SectionHeader>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                {plan.crossAnalysis.map((item, i) => {
-                  const nums = ["①", "②", "③"];
-                  const titleText = item.title.replace(/^[①②③④⑤]\s*/, "");
-                  const axisPills = item.axes.split("×").map((a) => a.trim());
-                  return (
-                    <div key={item.title} className="rounded-xl border border-brand/15 bg-gradient-to-br from-brand/5 to-transparent p-5 flex flex-col">
-                      <div className="flex items-start gap-3 mb-3">
-                        <span className="w-11 h-11 rounded-full bg-gradient-to-br from-brand to-brand-dark text-white text-[20px] font-bold flex items-center justify-center shrink-0">
-                          {nums[i] ?? String(i + 1)}
-                        </span>
-                        <h4 className="text-[16px] font-bold text-text-heading leading-snug pt-2">{titleText}</h4>
+          {/* ── Products with details ── */}
+          <div id="jul-products">
+            <SectionHeader id="jul-products-h">新作品番設計（{plan.products.length}型）</SectionHeader>
+            <div className="space-y-3">
+              {plan.products.map((p) => {
+                const tierStyle = p.tier === "S" ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white"
+                  : p.tier === "A" ? "bg-gradient-to-r from-brand to-brand-dark text-white"
+                  : "bg-text-secondary text-white";
+                const axisColor = (v: string) => v === "◎" ? "text-emerald-600 font-bold" : v === "○" ? "text-brand" : "text-text-muted";
+                return (
+                  <details key={p.id} className="rounded-xl border border-brand/10 overflow-hidden group">
+                    <summary className="px-4 py-3 cursor-pointer flex items-center gap-3 hover:bg-brand/5 transition-colors [&::-webkit-details-marker]:hidden list-none">
+                      <span className={`px-2.5 py-1 rounded text-[12px] font-bold shrink-0 ${tierStyle}`}>{p.tier}</span>
+                      <span className="font-mono font-bold text-brand-dark text-[15px] shrink-0">{p.id}</span>
+                      <span className="text-[15px] text-text-primary font-medium flex-1 min-w-0 truncate">{p.name}</span>
+                      {p.price && <span className="text-[15px] font-bold text-text-heading tabular-nums shrink-0">{p.price}</span>}
+                      <span className="text-[13px] text-text-muted tabular-nums shrink-0">{p.cost ?? ""}</span>
+                      {p.fourAxis && (
+                        <div className="flex gap-1 shrink-0">
+                          <span className={`text-[14px] ${axisColor(p.fourAxis.zozo)}`}>{p.fourAxis.zozo}</span>
+                          <span className={`text-[14px] ${axisColor(p.fourAxis.rakuten)}`}>{p.fourAxis.rakuten}</span>
+                          <span className={`text-[14px] ${axisColor(p.fourAxis.trend)}`}>{p.fourAxis.trend}</span>
+                          <span className={`text-[14px] ${axisColor(p.fourAxis.internal)}`}>{p.fourAxis.internal}</span>
+                        </div>
+                      )}
+                      <svg className="w-5 h-5 text-text-muted transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                      </svg>
+                    </summary>
+                    <div className="px-4 pb-4 pt-2 space-y-3 bg-base/50">
+                      {/* Specs */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[13px]">
+                        {p.category && <div><span className="text-text-muted">カテゴリ</span> <span className="font-medium text-text-primary ml-1">{p.category}</span></div>}
+                        {p.unitCost && <div><span className="text-text-muted">下代</span> <span className="font-medium text-text-primary ml-1">{p.unitCost}</span></div>}
+                        <div><span className="text-text-muted">SKU</span> <span className="font-medium text-text-primary ml-1">{p.colors && p.units ? `${p.colors}色×${Math.round(p.units / p.colors)}枚=${p.units}枚` : p.units ? `${p.units}枚` : "—"}</span></div>
+                        {p.cost && <div><span className="text-text-muted">仕入額</span> <span className="font-bold text-text-heading ml-1">{p.cost}</span></div>}
                       </div>
-                      <div className="flex flex-wrap gap-1.5 mb-3">
-                        {axisPills.map((axis) => {
-                          const c = axis.includes("ZOZO") ? "bg-gray-800 text-white"
-                            : axis.includes("楽天") ? "bg-red-500 text-white"
-                            : axis.includes("トレンド") ? "bg-purple-500 text-white"
-                            : "bg-brand/20 text-brand-dark";
-                          return <span key={axis} className={`px-2.5 py-0.5 rounded-full text-[12px] font-bold ${c}`}>{axis}</span>;
-                        })}
-                      </div>
-                      <p className="text-[13px] text-text-secondary leading-relaxed flex-1">{item.description}</p>
+                      {/* 4-Axis Detail */}
+                      {p.fourAxisDetail && (
+                        <div className="space-y-1.5">
+                          {[
+                            { label: "ZOZO", value: p.fourAxis?.zozo ?? "—", detail: p.fourAxisDetail.zozo },
+                            { label: "楽天", value: p.fourAxis?.rakuten ?? "—", detail: p.fourAxisDetail.rakuten },
+                            { label: "トレンド", value: p.fourAxis?.trend ?? "—", detail: p.fourAxisDetail.trend },
+                            { label: "自社", value: p.fourAxis?.internal ?? "—", detail: p.fourAxisDetail.internal },
+                          ].filter(a => a.detail !== "—").map((a) => (
+                            <div key={a.label} className="flex items-start gap-2 text-[13px]">
+                              <span className={`shrink-0 font-bold ${axisColor(a.value)} min-w-[20px]`}>{a.value}</span>
+                              <span className="text-text-muted font-bold shrink-0 min-w-[48px]">{a.label}</span>
+                              <span className="text-text-secondary">{a.detail}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {/* Rationale */}
+                      {p.rationale && (
+                        <div className="border-l-2 border-brand pl-3 py-1">
+                          <p className="text-[12px] font-bold text-brand uppercase tracking-wider mb-0.5">提案根拠</p>
+                          <p className="text-[13px] text-text-secondary leading-relaxed">{p.rationale}</p>
+                        </div>
+                      )}
                     </div>
-                  );
-                })}
+                  </details>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ── Restock (compact table) ── */}
+          {plan.restockItems && plan.restockItems.length > 0 && (
+            <div id="jul-restock">
+              <SectionHeader id="jul-restock-h">再入荷リスト（夏¥700万＋秋¥200万）</SectionHeader>
+              <div className="overflow-x-auto">
+                <table className="w-full text-[14px]">
+                  <thead>
+                    <tr className="bg-base">
+                      <th className="text-left px-3 py-2.5 font-semibold text-text-secondary rounded-l-lg">優先度</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-text-secondary">商品</th>
+                      <th className="text-right px-3 py-2.5 font-semibold text-text-secondary">月販</th>
+                      <th className="text-right px-3 py-2.5 font-semibold text-text-secondary">在庫</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-text-secondary">在庫月数</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-text-secondary rounded-r-lg">アクション</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {plan.restockItems.map((r, i) => {
+                      const priorityColor = r.priority === "最優先" ? "bg-red-500 text-white"
+                        : r.priority === "高" ? "bg-amber-500 text-white"
+                        : r.priority === "中" ? "bg-blue-500 text-white"
+                        : "bg-gray-300 text-gray-700";
+                      const isNl = r.id.startsWith("nl");
+                      return (
+                        <tr key={r.id} className={`${r.priority === "最優先" ? "bg-red-50/40" : i % 2 === 1 ? "bg-row-alt" : ""}`}>
+                          <td className="px-3 py-2">
+                            {r.priority && <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${priorityColor}`}>{r.priority}</span>}
+                          </td>
+                          <td className="px-3 py-2">
+                            <div className="flex items-center gap-2">
+                              {isNl && <RestockThumb id={r.id} />}
+                              <div>
+                                <span className="font-mono text-brand-dark font-bold text-[14px]">{r.id}</span>
+                                <span className="text-text-primary ml-1.5 text-[14px]">{r.name}</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-3 py-2 text-right font-bold text-text-heading tabular-nums">{r.sales}</td>
+                          <td className="px-3 py-2 text-right tabular-nums text-text-muted">{r.currentStock}</td>
+                          <td className="px-3 py-2">{r.stockMonths && <StockHealthBar stockMonths={r.stockMonths} />}</td>
+                          <td className="px-3 py-2 text-text-secondary text-[13px]">{r.action}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
               </div>
             </div>
           )}
 
-          {/* ── 軸① ZOZO市場分析 ── */}
+          {/* ── Clearance ── */}
+          {plan.clearanceCandidates && plan.clearanceCandidates.length > 0 && (
+            <div id="jul-clearance">
+              <SectionHeader id="jul-clearance-h">OFF消化候補</SectionHeader>
+              <div className="overflow-x-auto">
+                <table className="w-full text-[14px]">
+                  <thead>
+                    <tr className="bg-red-50">
+                      <th className="text-left px-3 py-2.5 font-semibold text-red-700 rounded-l-lg">品番</th>
+                      <th className="text-right px-3 py-2.5 font-semibold text-red-700">在庫</th>
+                      <th className="text-right px-3 py-2.5 font-semibold text-red-700">月販</th>
+                      <th className="text-right px-3 py-2.5 font-semibold text-red-700">在庫月数</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-red-700 rounded-r-lg">消化プラン</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {plan.clearanceCandidates.map((item, i) => {
+                      const months = parseFloat(item.stockMonths) || 0;
+                      const severity = months > 6 ? "text-red-600 font-extrabold" : months > 1 ? "text-amber-600 font-bold" : "text-emerald-600";
+                      const isNl = item.id.startsWith("nl");
+                      return (
+                        <tr key={item.id} className={i % 2 === 1 ? "bg-red-50/30" : ""}>
+                          <td className="px-3 py-2.5">
+                            <div className="flex items-center gap-2">
+                              {isNl && (
+                                <a href={getLink(item.id)} target="_blank" rel="noopener noreferrer" className="shrink-0">
+                                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                                  <img src={getImage(item.id)} alt={item.id} className="w-10 h-10 rounded-lg object-cover border border-red-200" />
+                                </a>
+                              )}
+                              <span className="font-mono font-bold text-red-700">{item.id}</span>
+                            </div>
+                          </td>
+                          <td className="px-3 py-2.5 text-right tabular-nums font-bold">{item.stock}</td>
+                          <td className="px-3 py-2.5 text-right tabular-nums">{item.sales}</td>
+                          <td className={`px-3 py-2.5 text-right tabular-nums ${severity}`}>{item.stockMonths}</td>
+                          <td className="px-3 py-2.5 text-text-secondary">{item.plan}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* ════════════════════════════════════════
+             ◆ 分析
+             ════════════════════════════════════════ */}
+          <div id="jul-analysis" className="rounded-xl bg-gradient-to-r from-purple-50 to-purple-50/30 border border-purple-200 px-5 py-3 mb-2 scroll-mt-24">
+            <p className="text-[15px] font-bold text-purple-700 tracking-wider">◆ 分析</p>
+          </div>
+
+          {/* ── 軸①〜④ ── */}
           {plan.marketReports && (() => {
             const zozoReports = plan.marketReports.filter(r => r.title.includes("ZOZO"));
             const rakutenReports = plan.marketReports.filter(r => r.title.includes("楽天"));
@@ -577,10 +593,14 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
             </div>
           )}
 
-          {/* ── Competitors ── */}
-          {plan.competitorProducts && plan.competitorProducts.length > 0 && (
-            <div id="jul-competitors">
-              <SectionHeader id="jul-competitors-h">他社売れ筋ランキング</SectionHeader>
+          {/* ════════════════════════════════════════
+             ◆ 他社売れ筋ランキング
+             ════════════════════════════════════════ */}
+          {plan.competitorProducts && plan.competitorProducts.length > 0 && (<>
+            <div id="jul-competitors" className="rounded-xl bg-gradient-to-r from-gray-100 to-gray-50 border border-gray-200 px-5 py-3 mb-2 scroll-mt-24">
+              <p className="text-[15px] font-bold text-gray-700 tracking-wider">◆ 他社売れ筋ランキング</p>
+            </div>
+            <div>
               {(["ZOZO", "楽天"] as const).map((src) => {
                 const items = plan.competitorProducts!.filter((c) => c.source === src);
                 if (items.length === 0) return null;
@@ -603,33 +623,19 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                 );
               })}
             </div>
-          )}
+          </>)}
 
-          {/* ── Categories ── */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="rounded-xl bg-base p-5">
-              <SectionHeader id="jul-cat-h">カテゴリ別展開</SectionHeader>
-              <div className="space-y-3">
-                {plan.categories.map((cat) => (
-                  <div key={cat.name} className="flex items-start gap-2">
-                    <span className="text-[14px] font-bold text-brand min-w-[80px] mt-0.5">{cat.name}</span>
-                    <span className="text-[14px] text-text-primary leading-relaxed">{cat.items.join(" / ")}</span>
-                  </div>
-                ))}
-              </div>
+          {/* ── Notes ── */}
+          {plan.notes.length > 0 && (
+            <div className="flex flex-wrap gap-2 pt-4 border-t border-brand/10">
+              {plan.notes.map((note) => (
+                <span key={note} className="inline-flex items-center gap-1.5 text-[14px] text-text-secondary bg-base px-3 py-2 rounded-lg">
+                  <span className="text-brand">&#9679;</span>
+                  {note}
+                </span>
+              ))}
             </div>
-            <div className="rounded-xl bg-base p-5">
-              <SectionHeader id="jul-notes-h">備考</SectionHeader>
-              <div className="space-y-2">
-                {plan.notes.map((note) => (
-                  <div key={note} className="flex items-start gap-2 text-[14px] text-text-secondary">
-                    <span className="text-brand mt-0.5">&#9679;</span>
-                    {note}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          )}
 
         </div>
       </div>

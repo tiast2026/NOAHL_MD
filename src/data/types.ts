@@ -8,6 +8,9 @@ export type Product = {
   colors?: number;
   units?: number;
   cost?: string;
+  category?: string;
+  unitCost?: string;
+  rationale?: string;
   salesRecord?: string;
   fourAxis?: { zozo: string; rakuten: string; trend: string; internal: string };
   fourAxisDetail?: { zozo: string; rakuten: string; trend: string; internal: string };
@@ -89,6 +92,7 @@ export type MonthPlan = {
   products: Product[];
   weeklyPlan?: WeeklyPlan[];
   budget?: BudgetItem[];
+  budgetDetail?: { category: string; amount: string; note?: string; isSubtotal?: boolean; isTotal?: boolean }[];
   restockItems?: RestockItem[];
   marketInsights?: MarketInsight[];
   marketReports?: MarketReport[];
