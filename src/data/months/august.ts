@@ -4,8 +4,8 @@ export const august: MonthPlan = {
   month: 8,
   theme: "夏物処分月 × 秋物本格投入",
   subTheme: "夏物新規ゼロ — 秋物S級に全リソース集中",
-  salesTarget: "¥3,800万",
-  salesRatio: "7.00%",
+  salesTarget: "—",
+  salesRatio: "—",
   totalBudget: "¥1,550万",
   seasonBreakdown: [
     { label: "夏物最終", amount: "¥1,520万", ratio: "40%" },
@@ -161,7 +161,7 @@ export const august: MonthPlan = {
     { category: "秋物小計", amount: "¥1,150万", isSubtotal: true },
     { category: "合計", amount: "¥1,550万", isTotal: true },
   ],
-  inventory: { target: "¥3,600万", ratio: "0.95" },
+  inventory: { target: "—", ratio: "—" },
   restockItems: [
     { id: "AS1/AS2（7月投入秋物）", name: "7月投入秋物の追加発注", sales: "—", currentStock: "—", action: "W2実績を見て追加発注", budget: "¥200万", priority: "最優先" },
     { id: "ZOZO先行展示用", name: "ZOZO先行展示用の秋物棚在庫", sales: "—", currentStock: "—", action: "ZOZO秋棚展示に合わせて在庫確保", budget: "¥200万", priority: "高" },
