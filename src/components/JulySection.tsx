@@ -107,13 +107,16 @@ function RichText({ text, className }: { text: string; className?: string }) {
         if (/^nl[a-z]{1,4}\d{2,}$/i.test(part)) {
           const id = part.toLowerCase();
           return (
-            <a key={i} href={getLink(id)} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 mx-0.5 align-middle group/code">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={getImage(id)} alt={id}
-                className="w-5 h-5 rounded object-cover border border-brand/15 inline-block align-middle" />
-              <span className="font-mono font-bold text-brand-dark underline decoration-brand/30 group-hover/code:decoration-brand">{part}</span>
-            </a>
+            <span key={i}>
+              <br />
+              <a href={getLink(id)} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 mx-0.5 align-middle group/code">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={getImage(id)} alt={id}
+                  className="w-5 h-5 rounded object-cover border border-brand/15 inline-block align-middle" />
+                <span className="font-mono font-bold text-brand-dark underline decoration-brand/30 group-hover/code:decoration-brand">{part}</span>
+              </a>
+            </span>
           );
         }
         return <span key={i}>{part}</span>;
