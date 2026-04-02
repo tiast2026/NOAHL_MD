@@ -148,17 +148,18 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
         </div>
 
         {/* ── TOC ── */}
-        <nav className="px-6 py-3 border-b border-brand/5 bg-base/50">
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
+        <nav className="px-6 py-4 border-b-2 border-brand/10 bg-gradient-to-b from-base-card to-base/80">
+          <p className="text-[11px] font-bold text-text-muted uppercase tracking-widest mb-2">目次</p>
+          <div className="flex items-center gap-2.5 overflow-x-auto scrollbar-none">
             {tocSections.map((sec) => {
-              const sectionColor = sec.id === "jul-summary" ? "bg-brand/15 text-brand-dark border-brand/20"
-                : sec.id === "jul-measures" ? "bg-blue-50 text-blue-700 border-blue-200"
-                : sec.id === "jul-procurement" ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                : sec.id === "jul-analysis" ? "bg-purple-50 text-purple-700 border-purple-200"
-                : "bg-gray-100 text-gray-700 border-gray-200";
+              const sectionColor = sec.id === "jul-summary" ? "bg-brand/15 text-brand-dark border-brand/30 hover:bg-brand/25"
+                : sec.id === "jul-measures" ? "bg-blue-50 text-blue-700 border-blue-300 hover:bg-blue-100"
+                : sec.id === "jul-procurement" ? "bg-emerald-50 text-emerald-700 border-emerald-300 hover:bg-emerald-100"
+                : sec.id === "jul-analysis" ? "bg-purple-50 text-purple-700 border-purple-300 hover:bg-purple-100"
+                : "bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200";
               return (
                 <a key={sec.id} href={`#${sec.id}`}
-                  className={`shrink-0 px-3 py-1.5 rounded-lg text-[13px] font-bold border ${sectionColor} hover:shadow-sm transition-all`}>
+                  className={`shrink-0 px-4 py-2 rounded-xl text-[14px] font-bold border-2 shadow-sm ${sectionColor} hover:shadow-md transition-all`}>
                   {sec.label}
                 </a>
               );
@@ -171,8 +172,9 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ════════════════════════════════════════
              ◆ KPI・サマリー
              ════════════════════════════════════════ */}
-          <div id="jul-summary" className="rounded-xl bg-gradient-to-r from-brand/10 to-brand/3 border border-brand/15 px-5 py-3 mb-2 scroll-mt-24">
-            <p className="text-[15px] font-bold text-brand-dark tracking-wider">◆ KPI・サマリー</p>
+          <div id="jul-summary" className="rounded-2xl bg-gradient-to-r from-brand/15 via-brand/8 to-transparent border-l-4 border-brand px-6 py-5 mb-4 scroll-mt-24">
+            <p className="text-[20px] font-extrabold text-brand-dark tracking-wider">KPI・サマリー</p>
+            <p className="text-[13px] text-text-muted mt-1">売上目標・予算・在庫・今月の重点アクション</p>
           </div>
 
           {/* ── KPI ── */}
@@ -236,8 +238,9 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ════════════════════════════════════════
              ◆ 施策
              ════════════════════════════════════════ */}
-          <div id="jul-measures" className="rounded-xl bg-gradient-to-r from-blue-50 to-blue-50/30 border border-blue-200 px-5 py-3 mb-2 scroll-mt-24">
-            <p className="text-[15px] font-bold text-blue-700 tracking-wider">◆ 施策</p>
+          <div id="jul-measures" className="rounded-2xl bg-gradient-to-r from-blue-100/60 via-blue-50/40 to-transparent border-l-4 border-blue-500 px-6 py-5 mb-4 scroll-mt-24">
+            <p className="text-[20px] font-extrabold text-blue-800 tracking-wider">施策</p>
+            <p className="text-[13px] text-blue-600/70 mt-1">週別スケジュール・イベント</p>
           </div>
 
           {/* ── Weekly Schedule ── */}
@@ -282,8 +285,9 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ════════════════════════════════════════
              ◆ 仕入予算配分
              ════════════════════════════════════════ */}
-          <div id="jul-procurement" className="rounded-xl bg-gradient-to-r from-emerald-50 to-emerald-50/30 border border-emerald-200 px-5 py-3 mb-2 scroll-mt-24">
-            <p className="text-[15px] font-bold text-emerald-700 tracking-wider">◆ 仕入予算配分</p>
+          <div id="jul-procurement" className="rounded-2xl bg-gradient-to-r from-emerald-100/60 via-emerald-50/40 to-transparent border-l-4 border-emerald-500 px-6 py-5 mb-4 scroll-mt-24">
+            <p className="text-[20px] font-extrabold text-emerald-800 tracking-wider">仕入予算配分</p>
+            <p className="text-[13px] text-emerald-600/70 mt-1">予算・新作品番・再入荷・OFF消化</p>
           </div>
 
           {/* ── Budget Detail Table ── */}
@@ -523,8 +527,9 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ════════════════════════════════════════
              ◆ 分析
              ════════════════════════════════════════ */}
-          <div id="jul-analysis" className="rounded-xl bg-gradient-to-r from-purple-50 to-purple-50/30 border border-purple-200 px-5 py-3 mb-2 scroll-mt-24">
-            <p className="text-[15px] font-bold text-purple-700 tracking-wider">◆ 分析</p>
+          <div id="jul-analysis" className="rounded-2xl bg-gradient-to-r from-purple-100/60 via-purple-50/40 to-transparent border-l-4 border-purple-500 px-6 py-5 mb-4 scroll-mt-24">
+            <p className="text-[20px] font-extrabold text-purple-800 tracking-wider">分析</p>
+            <p className="text-[13px] text-purple-600/70 mt-1">ZOZO・楽天・トレンド・自社実績</p>
           </div>
 
           {/* ── 軸①〜④ ── */}
@@ -638,8 +643,9 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
              ◆ 他社売れ筋ランキング
              ════════════════════════════════════════ */}
           {plan.competitorProducts && plan.competitorProducts.length > 0 && (<>
-            <div id="jul-competitors" className="rounded-xl bg-gradient-to-r from-gray-100 to-gray-50 border border-gray-200 px-5 py-3 mb-2 scroll-mt-24">
-              <p className="text-[15px] font-bold text-gray-700 tracking-wider">◆ 他社売れ筋ランキング</p>
+            <div id="jul-competitors" className="rounded-2xl bg-gradient-to-r from-gray-200/60 via-gray-100/40 to-transparent border-l-4 border-gray-500 px-6 py-5 mb-4 scroll-mt-24">
+              <p className="text-[20px] font-extrabold text-gray-800 tracking-wider">他社売れ筋ランキング</p>
+              <p className="text-[13px] text-gray-500 mt-1">ZOZO・楽天 TOP売上商品</p>
             </div>
             <div>
               {(["ZOZO", "楽天"] as const).map((src) => {
