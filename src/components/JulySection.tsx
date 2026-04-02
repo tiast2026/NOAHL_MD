@@ -602,7 +602,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                 </SectionHeader>
                 <div className="space-y-2">
                   {axis.reports.map((report) => (
-                    <details key={report.title} className="rounded-xl bg-base border border-brand/8 overflow-hidden group" open={axis.reports.length === 1}>
+                    <details key={report.title} className="rounded-xl bg-base border border-brand/8 overflow-hidden group" open>
                       <summary className="px-5 py-4 cursor-pointer flex items-center gap-3 hover:bg-brand/5 transition-colors [&::-webkit-details-marker]:hidden list-none">
                         <span className={`w-3 h-3 rounded-full shrink-0 ${axis.color}`} />
                         <span className="text-[16px] font-bold text-text-heading flex-1">{report.title}</span>
