@@ -1,6 +1,5 @@
 import type { MonthPlan, CompetitorProduct } from "@/data/types";
 import { getImage, getLink } from "@/data/images";
-import ProductCard from "./ProductCard";
 
 /* ── TOC items ── */
 const tocItems = [
@@ -94,9 +93,6 @@ const budgetColors = ["bg-brand", "bg-blue-500", "bg-emerald-500", "bg-amber-400
    ══════════════════════════════════════════ */
 
 export default function JulySection({ plan }: { plan: MonthPlan }) {
-  const sTier = plan.products.filter((p) => p.tier === "S");
-  const aTier = plan.products.filter((p) => p.tier === "A");
-  const bTier = plan.products.filter((p) => p.tier === "B");
 
   return (
     <section className="scroll-mt-20">
@@ -191,45 +187,68 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
             </div>
           )}
 
-          {/* ── Products ── */}
+          {/* ── Products (compact table) ── */}
           <div id="jul-products">
-            <SectionHeader id="jul-products-h">新作品番一覧</SectionHeader>
-
-            {sTier.length > 0 && (
-              <div className="mb-5">
-                <h4 className="text-[14px] font-bold text-amber-600 mb-3 flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded bg-gradient-to-r from-amber-500 to-amber-600 text-white text-[12px]">S級</span>
-                  主力商品 — {sTier.length}品番
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {sTier.map((p) => <ProductCard key={p.id} product={p} />)}
-                </div>
-              </div>
-            )}
-
-            {aTier.length > 0 && (
-              <div className="mb-5">
-                <h4 className="text-[14px] font-bold text-brand mb-3 flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded bg-gradient-to-r from-brand to-brand-dark text-white text-[12px]">A級</span>
-                  準主力 — {aTier.length}品番
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {aTier.map((p) => <ProductCard key={p.id} product={p} />)}
-                </div>
-              </div>
-            )}
-
-            {bTier.length > 0 && (
-              <div className="mb-5">
-                <h4 className="text-[14px] font-bold text-text-secondary mb-3 flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded bg-text-secondary text-white text-[12px]">B級</span>
-                  テスト — {bTier.length}品番
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {bTier.map((p) => <ProductCard key={p.id} product={p} />)}
-                </div>
-              </div>
-            )}
+            <SectionHeader id="jul-products-h">新作品番一覧（{plan.products.length}型）</SectionHeader>
+            <div className="overflow-x-auto">
+              <table className="w-full text-[13px]">
+                <thead>
+                  <tr className="bg-base">
+                    <th className="text-left px-3 py-2.5 font-semibold text-text-secondary rounded-l-lg">ランク</th>
+                    <th className="text-left px-3 py-2.5 font-semibold text-text-secondary">企画コード</th>
+                    <th className="text-left px-3 py-2.5 font-semibold text-text-secondary">商品名</th>
+                    <th className="text-right px-3 py-2.5 font-semibold text-text-secondary">価格</th>
+                    <th className="text-right px-3 py-2.5 font-semibold text-text-secondary">SKU</th>
+                    <th className="text-right px-3 py-2.5 font-semibold text-text-secondary">仕入額</th>
+                    <th className="text-center px-2 py-2.5 font-semibold text-text-secondary">ZOZO</th>
+                    <th className="text-center px-2 py-2.5 font-semibold text-text-secondary">楽天</th>
+                    <th className="text-center px-2 py-2.5 font-semibold text-text-secondary">トレンド</th>
+                    <th className="text-center px-2 py-2.5 font-semibold text-text-secondary rounded-r-lg">自社</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {plan.products.map((p, i) => {
+                    const tierStyle = p.tier === "S" ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white"
+                      : p.tier === "A" ? "bg-gradient-to-r from-brand to-brand-dark text-white"
+                      : "bg-text-secondary text-white";
+                    const axisColor = (v: string) => v === "◎" ? "text-emerald-600 font-bold" : v === "○" ? "text-brand" : "text-text-muted";
+                    return (
+                      <tr key={p.id} className={`${i % 2 === 1 ? "bg-row-alt" : ""} hover:bg-brand/5 transition-colors`}>
+                        <td className="px-3 py-2.5">
+                          <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${tierStyle}`}>{p.tier}</span>
+                        </td>
+                        <td className="px-3 py-2.5 font-mono font-bold text-brand-dark text-[14px] whitespace-nowrap">{p.id}</td>
+                        <td className="px-3 py-2.5 text-text-primary font-medium max-w-[280px]">
+                          <span className="line-clamp-1">{p.name}</span>
+                        </td>
+                        <td className="px-3 py-2.5 text-right font-bold text-text-heading tabular-nums whitespace-nowrap">{p.price ?? "—"}</td>
+                        <td className="px-3 py-2.5 text-right tabular-nums text-text-muted whitespace-nowrap">
+                          {p.colors && p.units ? `${p.colors}色×${Math.round(p.units / p.colors)}=${p.units}枚` : p.units ? `${p.units}枚` : "—"}
+                        </td>
+                        <td className="px-3 py-2.5 text-right tabular-nums text-text-secondary whitespace-nowrap">{p.cost ?? "—"}</td>
+                        {p.fourAxis ? (
+                          <>
+                            <td className={`px-2 py-2.5 text-center text-[15px] ${axisColor(p.fourAxis.zozo)}`}>{p.fourAxis.zozo}</td>
+                            <td className={`px-2 py-2.5 text-center text-[15px] ${axisColor(p.fourAxis.rakuten)}`}>{p.fourAxis.rakuten}</td>
+                            <td className={`px-2 py-2.5 text-center text-[15px] ${axisColor(p.fourAxis.trend)}`}>{p.fourAxis.trend}</td>
+                            <td className={`px-2 py-2.5 text-center text-[15px] ${axisColor(p.fourAxis.internal)}`}>{p.fourAxis.internal}</td>
+                          </>
+                        ) : (
+                          <td colSpan={4} className="px-2 py-2.5 text-center text-text-muted">—</td>
+                        )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            {/* Budget subtotal */}
+            <div className="mt-3 flex items-center justify-end gap-4 text-[13px] text-text-muted">
+              <span>夏物新作 2型: <strong className="text-text-heading">¥42万</strong></span>
+              <span>秋物S級 2型: <strong className="text-text-heading">¥71万</strong></span>
+              <span>秋物A級 2型: <strong className="text-text-heading">¥56万</strong></span>
+              <span>秋物B級 1型: <strong className="text-text-heading">¥10万</strong></span>
+            </div>
           </div>
 
           {/* ── Restock ── */}
