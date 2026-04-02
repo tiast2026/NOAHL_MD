@@ -23,7 +23,6 @@ const tocSections = [
     { id: "jul-axis3", label: "軸③トレンド" },
     { id: "jul-axis4", label: "軸④自社実績" },
     { id: "jul-patterns", label: "成功/失敗" },
-    { id: "jul-trends", label: "トレンド適合度" },
   ]},
   { id: "jul-competitors", label: "他社売れ筋ランキング", items: [] },
 ];
@@ -666,28 +665,6 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
             </div>
           )}
 
-          {/* ── Trends ── */}
-          {plan.trends && (
-            <div id="jul-trends" className="rounded-xl bg-base p-5">
-              <SectionHeader id="jul-trends-h">トレンド適合度</SectionHeader>
-              <div className="space-y-3">
-                {plan.trends.map((t) => (
-                  <div key={t.name}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[16px] text-text-primary font-medium">{t.name}</span>
-                      <span className="text-[17px] font-bold text-brand tabular-nums">{t.score}/10</span>
-                    </div>
-                    <div className="h-7 bg-brand/8 rounded-lg overflow-hidden">
-                      <div className="h-full bg-gradient-to-r from-brand to-brand-dark rounded-lg flex items-center justify-end pr-2"
-                        style={{ width: `${t.score * 10}%` }}>
-                        {t.score >= 7 && <span className="text-[13px] text-white font-bold">{t.score}</span>}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* ════════════════════════════════════════
              ◆ 他社売れ筋ランキング
