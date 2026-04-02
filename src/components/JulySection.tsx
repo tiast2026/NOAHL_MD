@@ -301,12 +301,6 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                 else if (row.category.startsWith("秋")) currentSeason = "autumn";
                 return { ...row, season: currentSeason };
               });
-              // Extract product IDs mentioned in parentheses like （SU1＋SU2）
-              const extractIds = (text: string): string[] => {
-                const m = text.match(/[（(]([^）)]+)[）)]/);
-                if (!m) return [];
-                return m[1].split(/[＋+・]/).map(s => s.trim()).filter(Boolean);
-              };
               return (
                 <div className="overflow-x-auto">
                   <table className="w-full text-[14px] border-collapse">
@@ -327,8 +321,6 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                         const seasonBorder = row.season === "summer" ? "border-l-4 border-l-orange-400"
                           : row.season === "autumn" ? "border-l-4 border-l-amber-500"
                           : "border-l-4 border-l-emerald-500";
-                        const linkedIds = extractIds(row.category);
-                        const categoryLabel = row.category.replace(/[（(][^）)]+[）)]/, "").trim();
                         return (
                           <tr key={row.category} className={`${seasonBg} ${seasonBorder} ${!row.isTotal && !row.isSubtotal ? "border-b border-brand/5" : ""}`}>
                             <td className={`px-4 py-3 ${
@@ -336,17 +328,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                               : row.isSubtotal ? "font-bold border-t border-emerald-200"
                               : "text-text-primary pl-6"
                             } ${row.isSubtotal && row.season === "summer" ? "text-orange-700" : row.isSubtotal && row.season === "autumn" ? "text-amber-700" : ""}`}>
-                              {row.isSubtotal ? `── ${row.category}` : row.isTotal ? row.category : (
-                                <span className="flex items-center gap-2 flex-wrap">
-                                  <span>{linkedIds.length > 0 ? categoryLabel : row.category}</span>
-                                  {linkedIds.map(id => (
-                                    <a key={id} href={`#jul-product-${id}`}
-                                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-brand/10 text-brand-dark text-[12px] font-bold hover:bg-brand/20 transition-colors">
-                                      {id} <span className="text-[10px]">↓</span>
-                                    </a>
-                                  ))}
-                                </span>
-                              )}
+                              {row.isSubtotal ? `── ${row.category}` : row.category}
                             </td>
                             <td className={`px-4 py-3 text-right tabular-nums ${
                               row.isTotal ? "font-extrabold text-emerald-800 text-[16px] border-t-2 border-emerald-300"
@@ -397,17 +379,40 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
             )}
           </div>
 
-          {/* ── Products with details ── */}
+          {/* ── Products with details (grouped by budget category) ── */}
           <div id="jul-products">
             <SectionHeader id="jul-products-h">新作品番設計（{plan.products.length}型）</SectionHeader>
-            <div className="space-y-3">
-              {plan.products.map((p) => {
-                const tierStyle = p.tier === "S" ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white"
-                  : p.tier === "A" ? "bg-gradient-to-r from-brand to-brand-dark text-white"
-                  : "bg-text-secondary text-white";
-                const axisColor = (v: string) => v === "◎" ? "text-emerald-600 font-bold" : v === "○" ? "text-brand" : "text-text-muted";
-                return (
-                  <details key={p.id} id={`jul-product-${p.id}`} className="rounded-xl border border-brand/10 overflow-hidden group scroll-mt-24">
+            {(() => {
+              const groups: { label: string; budget: string; season: "summer" | "autumn"; ids: string[] }[] = [
+                { label: "夏物新作 2型", budget: "¥42万", season: "summer", ids: ["SU1", "SU2"] },
+                { label: "秋物S級 2品番", budget: "¥71万", season: "autumn", ids: ["AS1", "AS2"] },
+                { label: "秋物A級 2品番", budget: "¥56万", season: "autumn", ids: ["AA1", "AA2"] },
+                { label: "秋物B級 1品番", budget: "¥10万", season: "autumn", ids: ["AB1"] },
+              ];
+              const axisColor = (v: string) => v === "◎" ? "text-emerald-600 font-bold" : v === "○" ? "text-brand" : "text-text-muted";
+              return (
+                <div className="space-y-6">
+                  {groups.map((g) => {
+                    const products = g.ids.map(id => plan.products.find(p => p.id === id)).filter(Boolean);
+                    if (products.length === 0) return null;
+                    const seasonColor = g.season === "summer"
+                      ? "border-l-orange-400 bg-orange-50/30"
+                      : "border-l-amber-500 bg-amber-50/30";
+                    const labelColor = g.season === "summer" ? "text-orange-700" : "text-amber-700";
+                    return (
+                      <div key={g.label} className={`border-l-4 ${seasonColor} rounded-r-xl pl-4 py-3`}>
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className={`text-[15px] font-bold ${labelColor}`}>{g.label}</span>
+                          <span className="text-[13px] text-text-muted tabular-nums">予算 {g.budget}</span>
+                        </div>
+                        <div className="space-y-3">
+                          {products.map((p) => {
+                            if (!p) return null;
+                            const tierStyle = p.tier === "S" ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white"
+                              : p.tier === "A" ? "bg-gradient-to-r from-brand to-brand-dark text-white"
+                              : "bg-text-secondary text-white";
+                            return (
+                              <details key={p.id} id={`jul-product-${p.id}`} className="rounded-xl border border-brand/10 overflow-hidden group scroll-mt-24 bg-base-card">
                     <summary className="px-4 py-3 cursor-pointer flex items-center gap-3 hover:bg-brand/5 transition-colors [&::-webkit-details-marker]:hidden list-none">
                       <span className={`px-2.5 py-1 rounded text-[12px] font-bold shrink-0 ${tierStyle}`}>{p.tier}</span>
                       <span className="font-mono font-bold text-brand-dark text-[15px] shrink-0">{p.id}</span>
@@ -462,9 +467,15 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                       )}
                     </div>
                   </details>
-                );
-              })}
-            </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
           </div>
 
           {/* ── Restock (compact table) ── */}
