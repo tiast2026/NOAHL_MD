@@ -5,15 +5,19 @@ import { getImage, getLink } from "@/data/images";
 const tocItems = [
   { id: "jul-kpi", label: "KPI・予算" },
   { id: "jul-schedule", label: "週別スケジュール" },
-  { id: "jul-products", label: "新作品番" },
   { id: "jul-restock", label: "再入荷" },
   { id: "jul-clearance", label: "OFF消化" },
+  { id: "jul-products", label: "新作品番" },
   { id: "jul-budget", label: "仕入配分" },
+  { id: "jul-events", label: "イベント" },
   { id: "jul-cross", label: "4軸クロス総評" },
-  { id: "jul-reports", label: "市場分析" },
-  { id: "jul-competitors", label: "他社売れ筋" },
+  { id: "jul-axis1", label: "軸①ZOZO" },
+  { id: "jul-axis2", label: "軸②楽天" },
+  { id: "jul-axis3", label: "軸③トレンド" },
+  { id: "jul-axis4", label: "軸④自社実績" },
   { id: "jul-patterns", label: "成功/失敗" },
   { id: "jul-trends", label: "トレンド適合度" },
+  { id: "jul-competitors", label: "他社売れ筋" },
 ];
 
 /* ── Season colors ── */
@@ -135,9 +139,8 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           {/* ── KPI ── */}
           <div id="jul-kpi">
             <SectionHeader id="jul-kpi-h">KPI・予算サマリー</SectionHeader>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
               <KpiCard label="売上目標" value={plan.salesTarget} accent />
-              <KpiCard label="構成比" value={plan.salesRatio} />
               <KpiCard label="仕入予算" value={plan.totalBudget ?? "—"} />
               <KpiCard label="在庫目標" value={plan.inventory.target} />
               <KpiCard label="在庫/売上比" value={plan.inventory.ratio} />
@@ -187,118 +190,45 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
             </div>
           )}
 
-          {/* ── Products (compact table) ── */}
-          <div id="jul-products">
-            <SectionHeader id="jul-products-h">新作品番一覧（{plan.products.length}型）</SectionHeader>
-            <div className="overflow-x-auto">
-              <table className="w-full text-[13px]">
-                <thead>
-                  <tr className="bg-base">
-                    <th className="text-left px-3 py-2.5 font-semibold text-text-secondary rounded-l-lg">ランク</th>
-                    <th className="text-left px-3 py-2.5 font-semibold text-text-secondary">企画コード</th>
-                    <th className="text-left px-3 py-2.5 font-semibold text-text-secondary">商品名</th>
-                    <th className="text-right px-3 py-2.5 font-semibold text-text-secondary">価格</th>
-                    <th className="text-right px-3 py-2.5 font-semibold text-text-secondary">SKU</th>
-                    <th className="text-right px-3 py-2.5 font-semibold text-text-secondary">仕入額</th>
-                    <th className="text-center px-2 py-2.5 font-semibold text-text-secondary">ZOZO</th>
-                    <th className="text-center px-2 py-2.5 font-semibold text-text-secondary">楽天</th>
-                    <th className="text-center px-2 py-2.5 font-semibold text-text-secondary">トレンド</th>
-                    <th className="text-center px-2 py-2.5 font-semibold text-text-secondary rounded-r-lg">自社</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {plan.products.map((p, i) => {
-                    const tierStyle = p.tier === "S" ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white"
-                      : p.tier === "A" ? "bg-gradient-to-r from-brand to-brand-dark text-white"
-                      : "bg-text-secondary text-white";
-                    const axisColor = (v: string) => v === "◎" ? "text-emerald-600 font-bold" : v === "○" ? "text-brand" : "text-text-muted";
-                    return (
-                      <tr key={p.id} className={`${i % 2 === 1 ? "bg-row-alt" : ""} hover:bg-brand/5 transition-colors`}>
-                        <td className="px-3 py-2.5">
-                          <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${tierStyle}`}>{p.tier}</span>
-                        </td>
-                        <td className="px-3 py-2.5 font-mono font-bold text-brand-dark text-[14px] whitespace-nowrap">{p.id}</td>
-                        <td className="px-3 py-2.5 text-text-primary font-medium max-w-[280px]">
-                          <span className="line-clamp-1">{p.name}</span>
-                        </td>
-                        <td className="px-3 py-2.5 text-right font-bold text-text-heading tabular-nums whitespace-nowrap">{p.price ?? "—"}</td>
-                        <td className="px-3 py-2.5 text-right tabular-nums text-text-muted whitespace-nowrap">
-                          {p.colors && p.units ? `${p.colors}色×${Math.round(p.units / p.colors)}=${p.units}枚` : p.units ? `${p.units}枚` : "—"}
-                        </td>
-                        <td className="px-3 py-2.5 text-right tabular-nums text-text-secondary whitespace-nowrap">{p.cost ?? "—"}</td>
-                        {p.fourAxis ? (
-                          <>
-                            <td className={`px-2 py-2.5 text-center text-[15px] ${axisColor(p.fourAxis.zozo)}`}>{p.fourAxis.zozo}</td>
-                            <td className={`px-2 py-2.5 text-center text-[15px] ${axisColor(p.fourAxis.rakuten)}`}>{p.fourAxis.rakuten}</td>
-                            <td className={`px-2 py-2.5 text-center text-[15px] ${axisColor(p.fourAxis.trend)}`}>{p.fourAxis.trend}</td>
-                            <td className={`px-2 py-2.5 text-center text-[15px] ${axisColor(p.fourAxis.internal)}`}>{p.fourAxis.internal}</td>
-                          </>
-                        ) : (
-                          <td colSpan={4} className="px-2 py-2.5 text-center text-text-muted">—</td>
-                        )}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            {/* Budget subtotal */}
-            <div className="mt-3 flex items-center justify-end gap-4 text-[13px] text-text-muted">
-              <span>夏物新作 2型: <strong className="text-text-heading">¥42万</strong></span>
-              <span>秋物S級 2型: <strong className="text-text-heading">¥71万</strong></span>
-              <span>秋物A級 2型: <strong className="text-text-heading">¥56万</strong></span>
-              <span>秋物B級 1型: <strong className="text-text-heading">¥10万</strong></span>
-            </div>
-          </div>
-
-          {/* ── Restock ── */}
+          {/* ── Restock (prominent, with larger images) ── */}
           {plan.restockItems && plan.restockItems.length > 0 && (
             <div id="jul-restock">
-              <SectionHeader id="jul-restock-h">再入荷リスト（¥700万＋秋¥200万）</SectionHeader>
-              <div className="overflow-x-auto">
-                <table className="w-full text-[13px]">
-                  <thead>
-                    <tr className="bg-base">
-                      <th className="text-left px-3 py-2 font-semibold text-text-secondary rounded-l-lg">優先度</th>
-                      <th className="text-left px-3 py-2 font-semibold text-text-secondary">商品</th>
-                      <th className="text-right px-3 py-2 font-semibold text-text-secondary">月販</th>
-                      <th className="text-right px-3 py-2 font-semibold text-text-secondary">在庫</th>
-                      <th className="text-left px-3 py-2 font-semibold text-text-secondary">在庫月数</th>
-                      <th className="text-left px-3 py-2 font-semibold text-text-secondary rounded-r-lg">アクション</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {plan.restockItems.map((r, i) => {
-                      const priorityColor = r.priority === "最優先" ? "bg-red-500 text-white"
-                        : r.priority === "高" ? "bg-amber-500 text-white"
-                        : r.priority === "中" ? "bg-blue-500 text-white"
-                        : "bg-gray-300 text-gray-700";
-                      const isNl = r.id.startsWith("nl");
-                      return (
-                        <tr key={r.id} className={i % 2 === 1 ? "bg-row-alt" : ""}>
-                          <td className="px-3 py-2">
-                            {r.priority && (
-                              <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold ${priorityColor}`}>{r.priority}</span>
-                            )}
-                          </td>
-                          <td className="px-3 py-2">
-                            <div className="flex items-center gap-2">
-                              {isNl && <RestockThumb id={r.id} />}
-                              <div>
-                                <span className="font-mono text-brand-dark font-bold text-[13px]">{r.id}</span>
-                                <span className="text-text-primary ml-1.5">{r.name}</span>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-3 py-2 text-right font-bold text-text-heading tabular-nums">{r.sales}</td>
-                          <td className="px-3 py-2 text-right tabular-nums text-text-muted">{r.currentStock}</td>
-                          <td className="px-3 py-2">{r.stockMonths && <StockHealthBar stockMonths={r.stockMonths} />}</td>
-                          <td className="px-3 py-2 text-text-secondary">{r.action}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+              <SectionHeader id="jul-restock-h">再入荷リスト（夏¥700万＋秋¥200万）</SectionHeader>
+              <div className="space-y-2">
+                {plan.restockItems.map((r) => {
+                  const priorityColor = r.priority === "最優先" ? "bg-red-500 text-white"
+                    : r.priority === "高" ? "bg-amber-500 text-white"
+                    : r.priority === "中" ? "bg-blue-500 text-white"
+                    : "bg-gray-300 text-gray-700";
+                  const urgentBorder = r.priority === "最優先" ? "border-red-300 bg-red-50/30" : "border-gray-100";
+                  const isNl = r.id.startsWith("nl");
+                  return (
+                    <div key={r.id} className={`flex items-center gap-4 rounded-xl border ${urgentBorder} p-3 hover:shadow-sm transition-shadow`}>
+                      {isNl && (
+                        <a href={getLink(r.id)} target="_blank" rel="noopener noreferrer" className="shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={getImage(r.id)} alt={r.id}
+                            className="w-16 h-16 rounded-xl object-cover border border-brand/10 hover:shadow-md transition-shadow" />
+                        </a>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          {r.priority && (
+                            <span className={`px-2.5 py-1 rounded-full text-[12px] font-bold ${priorityColor}`}>{r.priority}</span>
+                          )}
+                          <span className="font-mono text-brand-dark font-bold text-[15px]">{r.id}</span>
+                          <span className="font-medium text-text-primary text-[15px]">{r.name}</span>
+                        </div>
+                        <div className="flex items-center gap-4 flex-wrap">
+                          <span className="text-[15px] text-text-heading font-bold tabular-nums">{r.sales}</span>
+                          <span className="text-[14px] text-text-muted tabular-nums">残 {r.currentStock}</span>
+                          {r.stockMonths && <StockHealthBar stockMonths={r.stockMonths} />}
+                          <span className="text-[14px] text-text-secondary font-medium">{r.action}</span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -349,6 +279,63 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
             </div>
           )}
 
+          {/* ── Products (compact table) ── */}
+          <div id="jul-products">
+            <SectionHeader id="jul-products-h">新作品番設計（{plan.products.length}型）</SectionHeader>
+            <div className="overflow-x-auto">
+              <table className="w-full text-[14px]">
+                <thead>
+                  <tr className="bg-base">
+                    <th className="text-left px-3 py-3 font-semibold text-text-secondary rounded-l-lg w-12">ランク</th>
+                    <th className="text-left px-3 py-3 font-semibold text-text-secondary">企画コード</th>
+                    <th className="text-left px-3 py-3 font-semibold text-text-secondary">商品名</th>
+                    <th className="text-right px-3 py-3 font-semibold text-text-secondary">価格</th>
+                    <th className="text-right px-3 py-3 font-semibold text-text-secondary">SKU</th>
+                    <th className="text-right px-3 py-3 font-semibold text-text-secondary">仕入額</th>
+                    <th className="text-center px-2 py-3 font-semibold text-text-secondary">ZOZO</th>
+                    <th className="text-center px-2 py-3 font-semibold text-text-secondary">楽天</th>
+                    <th className="text-center px-2 py-3 font-semibold text-text-secondary">トレンド</th>
+                    <th className="text-center px-2 py-3 font-semibold text-text-secondary rounded-r-lg">自社</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {plan.products.map((p, i) => {
+                    const tierStyle = p.tier === "S" ? "bg-gradient-to-r from-amber-500 to-amber-600 text-white"
+                      : p.tier === "A" ? "bg-gradient-to-r from-brand to-brand-dark text-white"
+                      : "bg-text-secondary text-white";
+                    const axisColor = (v: string) => v === "◎" ? "text-emerald-600 font-bold" : v === "○" ? "text-brand" : "text-text-muted";
+                    return (
+                      <tr key={p.id} className={`${i % 2 === 1 ? "bg-row-alt" : ""} hover:bg-brand/5 transition-colors`}>
+                        <td className="px-3 py-3">
+                          <span className={`px-2.5 py-1 rounded text-[12px] font-bold ${tierStyle}`}>{p.tier}</span>
+                        </td>
+                        <td className="px-3 py-3 font-mono font-bold text-brand-dark text-[15px] whitespace-nowrap">{p.id}</td>
+                        <td className="px-3 py-3 text-text-primary font-medium max-w-[280px]">
+                          <span className="line-clamp-1">{p.name}</span>
+                        </td>
+                        <td className="px-3 py-3 text-right font-bold text-text-heading tabular-nums whitespace-nowrap">{p.price ?? "—"}</td>
+                        <td className="px-3 py-3 text-right tabular-nums text-text-muted whitespace-nowrap">
+                          {p.colors && p.units ? `${p.colors}色×${Math.round(p.units / p.colors)}=${p.units}枚` : p.units ? `${p.units}枚` : "—"}
+                        </td>
+                        <td className="px-3 py-3 text-right tabular-nums text-text-secondary whitespace-nowrap">{p.cost ?? "—"}</td>
+                        {p.fourAxis ? (
+                          <>
+                            <td className={`px-2 py-3 text-center text-[16px] ${axisColor(p.fourAxis.zozo)}`}>{p.fourAxis.zozo}</td>
+                            <td className={`px-2 py-3 text-center text-[16px] ${axisColor(p.fourAxis.rakuten)}`}>{p.fourAxis.rakuten}</td>
+                            <td className={`px-2 py-3 text-center text-[16px] ${axisColor(p.fourAxis.trend)}`}>{p.fourAxis.trend}</td>
+                            <td className={`px-2 py-3 text-center text-[16px] ${axisColor(p.fourAxis.internal)}`}>{p.fourAxis.internal}</td>
+                          </>
+                        ) : (
+                          <td colSpan={4} className="px-2 py-3 text-center text-text-muted">—</td>
+                        )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           {/* ── Budget ── */}
           {plan.budget && plan.budget.length > 0 && (
             <div id="jul-budget" className="rounded-xl bg-base p-5">
@@ -379,7 +366,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
           )}
 
           {/* ── Events ── */}
-          <div className="rounded-xl bg-base p-5">
+          <div id="jul-events" className="rounded-xl bg-base p-5">
             <SectionHeader id="jul-events-h">イベント・施策</SectionHeader>
             <div className="flex flex-wrap gap-2">
               {plan.events.map((ev) => (
@@ -429,68 +416,49 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
             </div>
           )}
 
-          {/* ── Market Reports ── */}
-          {plan.marketReports && plan.marketReports.length > 0 && (
-            <div id="jul-reports">
-              <SectionHeader id="jul-reports-h">市場分析レポート</SectionHeader>
-              <div className="space-y-2">
-                {plan.marketReports.map((report) => {
-                  const dotColor = report.title.includes("ZOZO") ? "bg-gray-800"
-                    : report.title.includes("楽天") ? "bg-red-500"
-                    : report.title.includes("AW") || report.title.includes("トレンド") ? "bg-purple-500"
-                    : "bg-brand";
-                  return (
-                    <details key={report.title} className="rounded-xl bg-base border border-brand/8 overflow-hidden group">
-                      <summary className="px-4 py-3.5 cursor-pointer flex items-center gap-2 hover:bg-brand/5 transition-colors [&::-webkit-details-marker]:hidden list-none">
-                        <span className={`w-3 h-3 rounded-full shrink-0 ${dotColor}`} />
-                        <span className="text-[15px] font-bold text-text-heading flex-1">{report.title}</span>
+          {/* ── 軸① ZOZO市場分析 ── */}
+          {plan.marketReports && (() => {
+            const zozoReports = plan.marketReports.filter(r => r.title.includes("ZOZO"));
+            const rakutenReports = plan.marketReports.filter(r => r.title.includes("楽天"));
+            const trendReports = plan.marketReports.filter(r => r.title.includes("AW") || r.title.includes("トレンド"));
+            const selfReports = plan.marketReports.filter(r => r.title.includes("自社"));
+            const axisGroups = [
+              { id: "jul-axis1", num: "①", title: "ZOZO市場分析", color: "bg-gray-800", reports: zozoReports },
+              { id: "jul-axis2", num: "②", title: "楽天市場分析", color: "bg-red-500", reports: rakutenReports },
+              { id: "jul-axis3", num: "③", title: "2026トレンド分析", color: "bg-purple-500", reports: trendReports },
+              { id: "jul-axis4", num: "④", title: "自社実績分析", color: "bg-brand", reports: selfReports },
+            ];
+            return axisGroups.map((axis) => axis.reports.length > 0 && (
+              <div key={axis.id} id={axis.id}>
+                <SectionHeader id={`${axis.id}-h`}>
+                  <span className={`${axis.color} text-white px-2.5 py-1 rounded-lg text-[13px] font-bold mr-1`}>軸{axis.num}</span>
+                  {axis.title}
+                </SectionHeader>
+                <div className="space-y-2">
+                  {axis.reports.map((report) => (
+                    <details key={report.title} className="rounded-xl bg-base border border-brand/8 overflow-hidden group" open={axis.reports.length === 1}>
+                      <summary className="px-5 py-4 cursor-pointer flex items-center gap-3 hover:bg-brand/5 transition-colors [&::-webkit-details-marker]:hidden list-none">
+                        <span className={`w-3 h-3 rounded-full shrink-0 ${axis.color}`} />
+                        <span className="text-[16px] font-bold text-text-heading flex-1">{report.title}</span>
                         <svg className="w-5 h-5 text-text-muted transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
                         </svg>
                       </summary>
-                      <div className="px-4 pb-4">
-                        <p className="text-[14px] text-text-secondary leading-relaxed">{report.body}</p>
+                      <div className="px-5 pb-5">
+                        <p className="text-[15px] text-text-secondary leading-relaxed">{report.body}</p>
                         {report.noahlInsight && (
-                          <div className="mt-3 border-l-2 border-brand pl-3">
+                          <div className="mt-4 border-l-3 border-brand pl-4 py-2 bg-brand/5 rounded-r-lg">
                             <p className="text-[12px] font-bold text-brand uppercase tracking-wider mb-1">NOAHLへの示唆</p>
-                            <p className="text-[14px] text-text-primary leading-relaxed font-medium">{report.noahlInsight}</p>
+                            <p className="text-[15px] text-text-primary leading-relaxed font-medium">{report.noahlInsight}</p>
                           </div>
                         )}
                       </div>
                     </details>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-
-          {/* ── Competitors ── */}
-          {plan.competitorProducts && plan.competitorProducts.length > 0 && (
-            <div id="jul-competitors">
-              <SectionHeader id="jul-competitors-h">他社売れ筋ランキング</SectionHeader>
-              {(["ZOZO", "楽天"] as const).map((src) => {
-                const items = plan.competitorProducts!.filter((c) => c.source === src);
-                if (items.length === 0) return null;
-                return (
-                  <details key={src} className="mb-3 rounded-xl border border-brand/10 overflow-hidden group">
-                    <summary className="px-4 py-3 cursor-pointer flex items-center gap-2 bg-base hover:bg-brand/5 transition-colors [&::-webkit-details-marker]:hidden list-none">
-                      <span className={`px-2.5 py-1 rounded text-[13px] font-bold ${src === "ZOZO" ? "bg-gray-800 text-white" : "bg-red-600 text-white"}`}>{src}</span>
-                      <span className="text-[15px] font-bold text-text-heading flex-1">{src === "ZOZO" ? "ZOZOTOWNランキング" : "楽天市場ランキング"}</span>
-                      <span className="text-[13px] text-text-muted">{items.length}件</span>
-                      <svg className="w-5 h-5 text-text-muted transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
-                      </svg>
-                    </summary>
-                    <div className="divide-y divide-brand/5">
-                      {items.map((item, i) => (
-                        <CompetitorRow key={`${item.source}-${i}`} item={item} rank={i + 1} />
-                      ))}
-                    </div>
-                  </details>
-                );
-              })}
-            </div>
-          )}
+            ));
+          })()}
 
           {/* ── Success / Failure ── */}
           {(plan.successPatterns || plan.failurePatterns) && (
@@ -506,7 +474,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                           </svg>
                         </span>
-                        <p className="text-[14px] text-text-primary leading-relaxed">{s}</p>
+                        <p className="text-[15px] text-text-primary leading-relaxed">{s}</p>
                       </div>
                     ))}
                   </div>
@@ -523,7 +491,7 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                           </svg>
                         </span>
-                        <p className="text-[14px] text-text-primary leading-relaxed">{f}</p>
+                        <p className="text-[15px] text-text-primary leading-relaxed">{f}</p>
                       </div>
                     ))}
                   </div>
@@ -540,18 +508,46 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                 {plan.trends.map((t) => (
                   <div key={t.name}>
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[15px] text-text-primary font-medium">{t.name}</span>
-                      <span className="text-[16px] font-bold text-brand tabular-nums">{t.score}/10</span>
+                      <span className="text-[16px] text-text-primary font-medium">{t.name}</span>
+                      <span className="text-[17px] font-bold text-brand tabular-nums">{t.score}/10</span>
                     </div>
-                    <div className="h-6 bg-brand/8 rounded-lg overflow-hidden">
+                    <div className="h-7 bg-brand/8 rounded-lg overflow-hidden">
                       <div className="h-full bg-gradient-to-r from-brand to-brand-dark rounded-lg flex items-center justify-end pr-2"
                         style={{ width: `${t.score * 10}%` }}>
-                        {t.score >= 7 && <span className="text-[12px] text-white font-bold">{t.score}</span>}
+                        {t.score >= 7 && <span className="text-[13px] text-white font-bold">{t.score}</span>}
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
+            </div>
+          )}
+
+          {/* ── Competitors ── */}
+          {plan.competitorProducts && plan.competitorProducts.length > 0 && (
+            <div id="jul-competitors">
+              <SectionHeader id="jul-competitors-h">他社売れ筋ランキング</SectionHeader>
+              {(["ZOZO", "楽天"] as const).map((src) => {
+                const items = plan.competitorProducts!.filter((c) => c.source === src);
+                if (items.length === 0) return null;
+                return (
+                  <details key={src} className="mb-3 rounded-xl border border-brand/10 overflow-hidden group">
+                    <summary className="px-5 py-4 cursor-pointer flex items-center gap-3 bg-base hover:bg-brand/5 transition-colors [&::-webkit-details-marker]:hidden list-none">
+                      <span className={`px-3 py-1 rounded-lg text-[14px] font-bold ${src === "ZOZO" ? "bg-gray-800 text-white" : "bg-red-600 text-white"}`}>{src}</span>
+                      <span className="text-[16px] font-bold text-text-heading flex-1">{src === "ZOZO" ? "ZOZOTOWNランキング" : "楽天市場ランキング"}</span>
+                      <span className="text-[14px] text-text-muted">{items.length}件</span>
+                      <svg className="w-5 h-5 text-text-muted transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                      </svg>
+                    </summary>
+                    <div className="divide-y divide-brand/5">
+                      {items.map((item, i) => (
+                        <CompetitorRow key={`${item.source}-${i}`} item={item} rank={i + 1} />
+                      ))}
+                    </div>
+                  </details>
+                );
+              })}
             </div>
           )}
 
