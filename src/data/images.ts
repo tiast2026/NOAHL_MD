@@ -35,6 +35,14 @@ export const productImages: Record<string, string> = {
   nlsk389: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202508/nlsk389-1r.jpg",
   nlot428: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202510/nlot428-1r.jpg",
   nlot443: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202512/nlot443-1r.jpg",
+  // 8月追加
+  nlbi019: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202505/nlbi019-1r.jpg",
+  nlbi023: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2024/202404/nlbi023-1.jpg",
+  nlsk306: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202505/nlsk306-1r.jpg",
+  nlsk317: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202505/nlsk317-1r.jpg",
+  nltp383: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202508/nltp383-1r.jpg",
+  nlpt425: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202510/nlpt425-1r.jpg",
+  nlmot007: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202511/nlmot007-1r.jpg",
   // 秋冬 主力
   nltp281: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202504/nltp281-1r.jpg",
   nltp288: "https://thumbnail.image.rakuten.co.jp/@0_mall/noahl/cabinet/shohin/2025/202504/nltp288-1r.jpg",
@@ -129,6 +137,14 @@ export const productLinks: Record<string, string> = {
   nlwp314: "https://item.rakuten.co.jp/noahl/nlwp314-2506/",
   nlwp315: "https://item.rakuten.co.jp/noahl/nlwp315-2505/",
   nlxn30705: "https://item.rakuten.co.jp/noahl/nlxn30705-50a17-220825/",
+  // 8月追加
+  nlbi019: "https://item.rakuten.co.jp/noahl/nlbi019-82s18-220530/",
+  nlbi023: "https://item.rakuten.co.jp/noahl/nlbi023-37a22-220525/",
+  nlsk306: "https://item.rakuten.co.jp/noahl/nlsk306-2505/",
+  nlsk317: "https://item.rakuten.co.jp/noahl/nlsk317-2505/",
+  nltp383: "https://item.rakuten.co.jp/noahl/nltp383-2508/",
+  nlpt425: "https://item.rakuten.co.jp/noahl/nlpt425-2510/",
+  nlmot007: "https://item.rakuten.co.jp/noahl/nlmot007-2510/",
   // 推定リンク（スプレッドシート未掲載）
   nlpt329: "https://item.rakuten.co.jp/noahl/nlpt329-2507/",
   nlpt454: "https://item.rakuten.co.jp/noahl/nlpt454-2510/",
