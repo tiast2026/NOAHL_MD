@@ -2,22 +2,30 @@ import type { MonthPlan, CompetitorProduct } from "@/data/types";
 import { getImage, getLink } from "@/data/images";
 
 /* ── TOC items ── */
-const tocItems = [
-  { id: "jul-kpi", label: "KPI・予算" },
-  { id: "jul-schedule", label: "週別スケジュール" },
-  { id: "jul-restock", label: "再入荷" },
-  { id: "jul-clearance", label: "OFF消化" },
-  { id: "jul-products", label: "新作品番" },
-  { id: "jul-budget", label: "仕入配分" },
-  { id: "jul-events", label: "イベント" },
-  { id: "jul-cross", label: "4軸クロス総評" },
-  { id: "jul-axis1", label: "軸①ZOZO" },
-  { id: "jul-axis2", label: "軸②楽天" },
-  { id: "jul-axis3", label: "軸③トレンド" },
-  { id: "jul-axis4", label: "軸④自社実績" },
-  { id: "jul-patterns", label: "成功/失敗" },
-  { id: "jul-trends", label: "トレンド適合度" },
-  { id: "jul-competitors", label: "他社売れ筋" },
+const tocSections = [
+  { id: "jul-summary", label: "KPI・サマリー", items: [
+    { id: "jul-kpi", label: "KPI" },
+    { id: "jul-cross", label: "今月やるべきこと" },
+  ]},
+  { id: "jul-measures", label: "施策", items: [
+    { id: "jul-schedule", label: "週別スケジュール" },
+    { id: "jul-events", label: "イベント" },
+  ]},
+  { id: "jul-procurement", label: "仕入予算配分", items: [
+    { id: "jul-budget", label: "予算" },
+    { id: "jul-products", label: "新作品番" },
+    { id: "jul-restock", label: "再入荷" },
+    { id: "jul-clearance", label: "OFF消化" },
+  ]},
+  { id: "jul-analysis", label: "分析", items: [
+    { id: "jul-axis1", label: "軸①ZOZO" },
+    { id: "jul-axis2", label: "軸②楽天" },
+    { id: "jul-axis3", label: "軸③トレンド" },
+    { id: "jul-axis4", label: "軸④自社実績" },
+    { id: "jul-patterns", label: "成功/失敗" },
+    { id: "jul-trends", label: "トレンド適合度" },
+  ]},
+  { id: "jul-competitors", label: "他社売れ筋ランキング", items: [] },
 ];
 
 /* ── Season colors ── */
@@ -116,34 +124,39 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
 
         {/* ── TOC ── */}
         <nav className="px-6 py-3 border-b border-brand/5 bg-base/50">
-          <div className="flex items-center gap-1 overflow-x-auto scrollbar-none">
-            <span className="text-[12px] text-text-muted font-semibold mr-2 shrink-0">目次</span>
-            {tocItems.map((t) => (
-              <a key={t.id} href={`#${t.id}`}
-                className="shrink-0 px-2.5 py-1 rounded-full text-[12px] font-medium text-text-secondary hover:bg-brand/10 hover:text-brand-dark transition-all">
-                {t.label}
-              </a>
-            ))}
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
+            {tocSections.map((sec) => {
+              const sectionColor = sec.id === "jul-summary" ? "bg-brand/15 text-brand-dark border-brand/20"
+                : sec.id === "jul-measures" ? "bg-blue-50 text-blue-700 border-blue-200"
+                : sec.id === "jul-procurement" ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                : sec.id === "jul-analysis" ? "bg-purple-50 text-purple-700 border-purple-200"
+                : "bg-gray-100 text-gray-700 border-gray-200";
+              return (
+                <a key={sec.id} href={`#${sec.id}`}
+                  className={`shrink-0 px-3 py-1.5 rounded-lg text-[13px] font-bold border ${sectionColor} hover:shadow-sm transition-all`}>
+                  {sec.label}
+                </a>
+              );
+            })}
           </div>
         </nav>
 
         <div className="p-6 space-y-8">
 
           {/* ════════════════════════════════════════
-             BLOCK 1: ACTION DASHBOARD
+             ◆ KPI・サマリー
              ════════════════════════════════════════ */}
-          <div className="rounded-xl bg-gradient-to-r from-brand/5 to-transparent border border-brand/10 px-5 py-3 mb-2">
-            <p className="text-[14px] font-bold text-brand-dark tracking-wider uppercase">Action Dashboard — 今月やること</p>
+          <div id="jul-summary" className="rounded-xl bg-gradient-to-r from-brand/10 to-brand/3 border border-brand/15 px-5 py-3 mb-2 scroll-mt-24">
+            <p className="text-[15px] font-bold text-brand-dark tracking-wider">◆ KPI・サマリー</p>
           </div>
 
           {/* ── KPI ── */}
           <div id="jul-kpi">
-            <SectionHeader id="jul-kpi-h">KPI・予算サマリー</SectionHeader>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+            <SectionHeader id="jul-kpi-h">KPI</SectionHeader>
+            <div className="grid grid-cols-3 gap-3 mb-4">
               <KpiCard label="売上目標" value={plan.salesTarget} accent />
               <KpiCard label="仕入予算" value={plan.totalBudget ?? "—"} />
               <KpiCard label="在庫目標" value={plan.inventory.target} />
-              <KpiCard label="在庫/売上比" value={plan.inventory.ratio} />
             </div>
 
             {/* Season breakdown inline */}
@@ -159,6 +172,47 @@ export default function JulySection({ plan }: { plan: MonthPlan }) {
                 ))}
               </div>
             </div>
+          </div>
+
+          {/* ── Cross Analysis (moved here under KPI) ── */}
+          {plan.crossAnalysis && plan.crossAnalysis.length > 0 && (
+            <div id="jul-cross">
+              <SectionHeader id="jul-cross-h">今月やるべき3つのこと</SectionHeader>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                {plan.crossAnalysis.map((item, i) => {
+                  const nums = ["①", "②", "③"];
+                  const titleText = item.title.replace(/^[①②③④⑤]\s*/, "");
+                  const axisPills = item.axes.split("×").map((a) => a.trim());
+                  return (
+                    <div key={item.title} className="rounded-xl border border-brand/15 bg-gradient-to-br from-brand/5 to-transparent p-5 flex flex-col">
+                      <div className="flex items-start gap-3 mb-3">
+                        <span className="w-11 h-11 rounded-full bg-gradient-to-br from-brand to-brand-dark text-white text-[20px] font-bold flex items-center justify-center shrink-0">
+                          {nums[i] ?? String(i + 1)}
+                        </span>
+                        <h4 className="text-[16px] font-bold text-text-heading leading-snug pt-2">{titleText}</h4>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {axisPills.map((axis) => {
+                          const c = axis.includes("ZOZO") ? "bg-gray-800 text-white"
+                            : axis.includes("楽天") ? "bg-red-500 text-white"
+                            : axis.includes("トレンド") ? "bg-purple-500 text-white"
+                            : "bg-brand/20 text-brand-dark";
+                          return <span key={axis} className={`px-2.5 py-0.5 rounded-full text-[12px] font-bold ${c}`}>{axis}</span>;
+                        })}
+                      </div>
+                      <p className="text-[13px] text-text-secondary leading-relaxed flex-1">{item.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* ════════════════════════════════════════
+             ◆ 施策
+             ════════════════════════════════════════ */}
+          <div id="jul-measures" className="rounded-xl bg-gradient-to-r from-blue-50 to-blue-50/30 border border-blue-200 px-5 py-3 mb-2 scroll-mt-24">
+            <p className="text-[15px] font-bold text-blue-700 tracking-wider">◆ 施策</p>
           </div>
 
           {/* ── Weekly Schedule ── */}
